@@ -6,24 +6,28 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 call plug#begin('~/.vim/plugged')
 Plug 'ervandew/supertab'                   " better tab completion
+Plug 'ianks/vim-tsx'                       " Syntax highlighting and indenting for TSX
+Plug 'sheerun/vim-polyglot'                " syntax highlighting
 Plug 'janko/vim-test'                      " granular testing
 Plug 'jiangmiao/auto-pairs'                " auto close brackets
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'                    " fuzzy finding with ag
+Plug 'jparise/vim-graphql'                 " graphql syntax
 Plug 'mattn/gist-vim'                      " quickly put code into a gist
 Plug 'mattn/webapi-vim'                    " quickly put code into a gist
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'prettier/vim-prettier'               " code formatting
 Plug 'scrooloose/nerdcommenter'            " easy commenting
 Plug 'scrooloose/nerdtree'                 " find files by dir tree
-Plug 'sheerun/vim-polyglot'                " syntax highlighting
-Plug 'sonph/onehalf', {'rtp': 'vim/'}      " color theme
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'drewtempelmeyer/palenight.vim'       " theme
 Plug 'tpope/vim-dispatch'                  " async command line commands
 Plug 'tpope/vim-fugitive'                  " git integration
 Plug 'tpope/vim-rhubarb'                   " github for fugitive
 Plug 'tpope/vim-surround'                  " surround with tags
 Plug 'vim-airline/vim-airline'             " status bar plugin
+Plug 'leafgarland/typescript-vim'          " typescript plugin 
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 " map leader to spacebar (best thing ever)
@@ -33,13 +37,16 @@ let mapleader = ' '
 syntax enable           " Enable code highlighting
 set guioptions-=r
 set termguicolors
+colorscheme palenight
 set background=dark
-colorscheme onehalfdark
+hi Normal       ctermfg=250 guifg=#d0d0d0 ctermbg=black guibg=#0c0c0c
 
-" line Numbers
+"s line Numbers
 set number
 set numberwidth=2
 set laststatus=2
+set list
+set listchars=eol:¬,tab:>·,trail:.,extends:>,precedes:<,space:.
 
 " search stuff
 set incsearch
@@ -56,13 +63,15 @@ set autoindent
 set smartindent
 set backspace=indent,eol,start
 set title
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
-" split windows navigation
-nnoremap <leader>h <C-W><C-H>
+" split windows
 nnoremap <leader>j <C-W><C-J>
 nnoremap <leader>k <C-W><C-K>
 nnoremap <leader>l <C-W><C-L>
+nnoremap <leader>h <C-W><C-H>
 tnoremap <leader>h <C-\><C-N><C-w>h
 tnoremap <leader>j <C-\><C-N><C-w>j
 tnoremap <leader>k <C-\><C-N><C-w>k
@@ -72,6 +81,10 @@ tnoremap <leader>l <C-\><C-N><C-w>l
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
+" close all buffers
+nnoremap <leader>x :bd<CR>
+nnoremap <leader>xx :%bd<CR>
+
 " search and replace under cursor
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
 
@@ -80,7 +93,7 @@ set backupdir=/var/tmp,/tmp
 set directory=/var/tmp,/tmp
 
 " Airline / Status line options
-let g:airline_theme='onehalfdark'
+let g:airline_theme='palenight'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_min_count = 2
@@ -118,11 +131,10 @@ noremap <leader>b :Buffers<CR>
 let g:NERDCustomDelimiters = { 'less': { 'left': '// ', 'right': '', 'leftAlt': '/* ', 'rightAlt': ' */' }, 'javascript': { 'left': '// ', 'right': '', 'leftAlt': '/* ', 'rightAlt': ' */' } }
 
 " NERDTree options
-noremap <leader>to :NERDTreeFind<CR>
+noremap <leader>t :NERDTreeFind<CR>
 noremap <leader>tt :NERDTreeToggle<CR>
 noremap <leader>tc :NERDTreeClose<CR>
 noremap <leader>tf :NERDTreeFocus<CR>
-noremap <leader>tr :NERDTreeRefreshRoot<CR>
 let g:NERDTreeWinSize = 50
 
 " Language Server (coc) options
@@ -132,7 +144,6 @@ set cmdheight=2
 set updatetime=300
 set shortmess+=c
 nmap <silent> <leader>d <Plug>(coc-definition)
-nmap <silent> <leader>R <Plug>(coc-rename)
 noremap <leader>e :<C-u>CocList diagnostics<cr>
 set completeopt=longest,menuone
 " Use K to show documentation in preview window
@@ -144,3 +155,16 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+" disable arrow keys cause im NOOB
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+" GO options
+nnoremap <leader>gi :GoImports<CR>
+nnoremap <leader>gb :GoBuild<CR>
+nnoremap <leader>gf :GoFmt<CR>
+nnoremap <leader>gr :GoRun<CR>
+

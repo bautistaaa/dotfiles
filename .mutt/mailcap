@@ -1,7 +1,0 @@
-text/html                ; elinks -dump %s              ; nametemplate=%s.html ; copiousoutput
-application/pdf          ; evince %s                    ; copiousoutput
-image/*                  ; eog %s                       ; copiousoutput
-audio/*                  ; mplayer %s                   ; copiousoutput
-video/*                  ; mplayer %s                   ; copiousoutput
-application/octet-stream ; mutt.octet.filter %s       ; copiousoutput
-
