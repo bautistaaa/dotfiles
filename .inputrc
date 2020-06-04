@@ -1,6 +1,0 @@
-# Ctrl+Left/Right to move by whole words.
-"\e[1;5C": forward-word
-"\e[1;5D": backward-word
-# Same with Shift pressed.
-"\e[1;6C": forward-word
-"\e[1;6D": backward-word
