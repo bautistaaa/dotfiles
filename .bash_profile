@@ -43,6 +43,9 @@ alias home='cd ~/'
 
 alias gp="git fetch origin --prune"
 
+# clean up branches that no longer exist on origin off local
+alias cb="git remote prune origin && git branch -vv | grep '\[[^]]* gone]' | awk '{ print $1 }' | xargs git branch -D"
+
 alias startpost="pg_ctl -D ~/.asdf/installs/postgres/9.6.8/data -l logfile start"
 
 alias stoppost="pg_ctl -D ~/.asdf/installs/postgres/9.6.8/data stop -s -m fast"
