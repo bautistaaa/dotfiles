@@ -26,12 +26,15 @@ Plug 'tpope/vim-fugitive'                  " git integration
 Plug 'tpope/vim-rhubarb'                   " github for fugitive
 Plug 'tpope/vim-surround'                  " surround with tags
 Plug 'vim-airline/vim-airline'             " status bar plugin
+Plug 'vim-airline/vim-airline-themes'      " airline theme
 Plug 'leafgarland/typescript-vim'          " typescript plugin 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 " map leader to spacebar (best thing ever)
 let mapleader = ' '
+
+let g:airline_theme='base16'
 
 " theme
 syntax enable           " Enable code highlighting
@@ -93,7 +96,6 @@ set backupdir=/var/tmp,/tmp
 set directory=/var/tmp,/tmp
 
 " Airline / Status line options
-let g:airline_theme='palenight'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_min_count = 2
