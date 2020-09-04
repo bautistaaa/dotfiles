@@ -1,2 +1,2 @@
-alias d='cd /Users/chrisbautista/workspace/dotfiles; nvim'
+alias d='cd /Users/chris.bautista/workspace/dotfiles; nvim'
 

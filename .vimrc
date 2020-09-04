@@ -35,6 +35,7 @@ call plug#end()
 let mapleader = ' '
 
 let g:airline_theme='base16'
+let g:github_enterprise_urls = ['https://github.prod.hulu.com']
 
 " theme
 syntax enable           " Enable code highlighting
@@ -45,11 +46,15 @@ set background=dark
 hi Normal       ctermfg=250 guifg=#d0d0d0 ctermbg=black guibg=#0c0c0c
 
 "s line Numbers
+set relativenumber
 set number
 set numberwidth=2
 set laststatus=2
 set list
 set listchars=eol:¬,tab:>·,trail:.,extends:>,precedes:<,space:.
+hi CursorLineNr   term=bold ctermfg=Yellow gui=bold guifg=Yellow
+hi LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+
 
 " search stuff
 set incsearch
