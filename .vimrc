@@ -28,6 +28,7 @@ Plug 'tpope/vim-surround'                  " surround with tags
 Plug 'vim-airline/vim-airline'             " status bar plugin
 Plug 'vim-airline/vim-airline-themes'      " airline theme
 Plug 'leafgarland/typescript-vim'          " typescript plugin 
+Plug 'mbbill/undotree'                     " undo mgmt 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
@@ -96,6 +97,8 @@ nnoremap <C-c> :bp\|bd #<CR>
 
 " search and replace under cursor
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
+
+nnoremap <Leader>u :UndotreeToggle<CR>
 
 " set one directory for .swp files
 set backupdir=/var/tmp,/tmp
