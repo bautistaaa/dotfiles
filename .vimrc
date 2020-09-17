@@ -92,6 +92,7 @@ nnoremap <S-Tab> :bprevious<CR>
 " close all buffers
 nnoremap <leader>x :bd<CR>
 nnoremap <leader>xx :%bd<CR>
+nnoremap <C-c> :bp\|bd #<CR>
 
 " search and replace under cursor
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
