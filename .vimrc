@@ -30,6 +30,7 @@ Plug 'vim-airline/vim-airline-themes'      " airline theme
 Plug 'leafgarland/typescript-vim'          " typescript plugin 
 Plug 'mbbill/undotree'                     " undo mgmt 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'mattn/emmet-vim'                     " emmet
 call plug#end()
 
 " map leader to spacebar (best thing ever)
@@ -149,6 +150,7 @@ noremap <leader>tf :NERDTreeFocus<CR>
 let g:NERDTreeWinSize = 50
 
 " Language Server (coc) options
+let g:coc_global_extensions = ['coc-emmet']
 set signcolumn=yes
 set hidden
 set cmdheight=2
@@ -156,6 +158,10 @@ set updatetime=300
 set shortmess+=c
 nmap <silent> <leader>d <Plug>(coc-definition)
 noremap <leader>e :<C-u>CocList diagnostics<cr>
+" Remap keys for applying codeAction to the current line.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
 set completeopt=longest,menuone
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -178,4 +184,3 @@ nnoremap <leader>gi :GoImports<CR>
 nnoremap <leader>gb :GoBuild<CR>
 nnoremap <leader>gf :GoFmt<CR>
 nnoremap <leader>gr :GoRun<CR>
-
