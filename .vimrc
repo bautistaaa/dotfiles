@@ -5,6 +5,9 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 
 endif
 call plug#begin('~/.vim/plugged')
+Plug 'neovim/nvim-lspconfig'
+Plug 'anott03/nvim-lspinstall'
+Plug 'nvim-lua/completion-nvim'
 Plug 'ervandew/supertab'                   " better tab completion
 Plug 'ianks/vim-tsx'                       " Syntax highlighting and indenting for TSX
 Plug 'sheerun/vim-polyglot'                " syntax highlighting
@@ -40,12 +43,15 @@ let g:airline_theme='base16'
 let g:github_enterprise_urls = ['https://github.prod.hulu.com']
 
 " theme
+set cursorcolumn
 syntax enable           " Enable code highlighting
 set guioptions-=r
 set termguicolors
 colorscheme palenight
 set background=dark
-hi Normal       ctermfg=250 guifg=#d0d0d0 ctermbg=black guibg=#0c0c0c
+"hi Normal       ctermfg=250 guifg=#d0d0d0 ctermbg=black guibg=#0c0c0c
+highlight Normal guibg=none
+highlight CursorColumn guibg=#404040
 
 "s line Numbers
 set relativenumber
@@ -157,12 +163,14 @@ set cmdheight=2
 set updatetime=300
 set shortmess+=c
 nmap <silent> <leader>d <Plug>(coc-definition)
+nmap <leader>rn <Plug>(coc-rename)
 noremap <leader>e :<C-u>CocList diagnostics<cr>
 " Remap keys for applying codeAction to the current line.
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
 set completeopt=longest,menuone
+inoremap <silent><expr> <c-space> coc#refresh()
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -178,6 +186,9 @@ noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
+
+lua require'lspconfig'.tsserver.setup{ on_attach=require'completion'.on_attach }
+lua require'lspconfig'.bashls.setup{ on_attach=require'completion'.on_attach }
 
 " GO options
 nnoremap <leader>gi :GoImports<CR>
