@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'neovim/nvim-lspconfig'
 Plug 'anott03/nvim-lspinstall'
 Plug 'nvim-lua/completion-nvim'
+Plug 'ryanoasis/vim-devicons'
 Plug 'ervandew/supertab'                   " better tab completion
 Plug 'ianks/vim-tsx'                       " Syntax highlighting and indenting for TSX
 Plug 'sheerun/vim-polyglot'                " syntax highlighting
@@ -23,7 +24,8 @@ Plug 'prettier/vim-prettier'               " code formatting
 Plug 'scrooloose/nerdcommenter'            " easy commenting
 Plug 'scrooloose/nerdtree'                 " find files by dir tree
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-Plug 'drewtempelmeyer/palenight.vim'       " theme
+"Plug 'drewtempelmeyer/palenight.vim'       " theme
+Plug 'chriskempson/base16-vim'
 Plug 'tpope/vim-dispatch'                  " async command line commands
 Plug 'tpope/vim-fugitive'                  " git integration
 Plug 'tpope/vim-rhubarb'                   " github for fugitive
@@ -47,7 +49,7 @@ set cursorcolumn
 syntax enable           " Enable code highlighting
 set guioptions-=r
 set termguicolors
-colorscheme palenight
+colorscheme base16-onedark
 set background=dark
 "hi Normal       ctermfg=250 guifg=#d0d0d0 ctermbg=black guibg=#0c0c0c
 highlight Normal guibg=none
