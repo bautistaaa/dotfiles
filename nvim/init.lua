@@ -31,6 +31,14 @@ wo.numberwidth = 2
 o.laststatus = 2
 wo.listchars='eol:¬,tab:>·,trail:.,extends:>,precedes:<,space:.'
 
+vim.g.airline_theme='base16'
+vim.g.github_enterprise_urls = {'https://github.prod.hulu.com'}
+vim.g.airline_powerline_fonts = 1
+vim.g['airline#extensions#tabline#enabled'] = 1
+vim.g['airline#extensions#tabline#buffer_min_count'] = 2
+vim.g['airline#extensions#tabline#formatter'] = 'unique_tail'
+vim.g.airline_section_y=''
+vim.g.airline_skip_empty_sections = 1
 vim.g.mapleader = ' '
 
 vim.cmd[[colorscheme gloombuddy]]
@@ -72,26 +80,23 @@ key_mapper('n', '<leader>fh', ':lua require"telescope.builtin".help_tags()<CR>')
 key_mapper('n', '<leader>fb', ':lua require"telescope.builtin".buffers()<CR>')
 key_mapper('n', '<Tab>', ':bnext<CR>')
 key_mapper('n', '<S-Tab>', ':bprevious<CR>')
-key_mapper('n', '<leader>x', ':luafile %<CR>')
+key_mapper('n', '<leader>z', ':luafile %<CR>')
 key_mapper('n', '<leader>t', ':NERDTreeFind<CR>')
 key_mapper('n', '<leader>tt', ':NERDTreeToggle<CR>')
 key_mapper('n', '<leader>tc', ':NERDTreeClose<CR>')
 key_mapper('n', '<leader>tf', ':NERDTreeFocus<CR>')
 key_mapper('n', '<leader>g', ':Gstatus<CR>')
-
---[[ 
---
-" close all buffers
-nnoremap <leader>x :bd<CR>
-nnoremap <leader>xx :%bd<CR>
-nnoremap <C-c> :bp\|bd #<CR>
-
-" search and replace under cursor
-nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
-
-nnoremap <Leader>u :UndotreeToggle<CR>
---]]
-
+key_mapper('n', '<leader>x', ':bd<CR>')
+key_mapper('n', '<leader>xx', ':%bd<CR>')
+key_mapper('n', '<C-c>', ':bp|bd #<CR>')
+key_mapper('n', '<leader>r', ':%s/<<C-r><C-w>>/')
+key_mapper('n', '<leader>u', ':UndotreeToggle<CR>')
+key_mapper('n', '<leader>u', ':UndotreeToggle<CR>')
+key_mapper('n', '<leader>j', '<C-w><C-j>')
+key_mapper('n', '<leader>k', '<C-w><C-k>')
+key_mapper('n', '<leader>l', '<C-w><C-l>')
+key_mapper('n', '<leader>h', '<C-w><C-h>')
+key_mapper('n', '<leader>p', ':PrettierAsync<CR>')
 
 local vim = vim
 local execute = vim.api.nvim_command
@@ -127,6 +132,8 @@ packer.startup(function()
   use 'jiangmiao/auto-pairs'
   use 'tpope/vim-surround'
   use 'scrooloose/nerdcommenter'
+  use 'vim-airline/vim-airline'
+  use 'vim-airline/vim-airline-themes'
 
   -- these are optional themes but I hear good things about gloombuddy ;)
   -- colorbuddy allows us to run the gloombuddy theme
