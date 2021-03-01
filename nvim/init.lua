@@ -41,6 +41,9 @@ vim.g.airline_section_y=''
 vim.g.airline_skip_empty_sections = 1
 vim.g.mapleader = ' '
 --vim.g.user_emmet_leader_key = '<C-y>'
+vim.g['test#strategy'] = 'neovim'
+vim.g['test#neovim#term_position'] = 'vertical'
+vim.g['test#javascript#jest#options'] = '--watch'
 
 vim.cmd[[colorscheme gloombuddy]]
 vim.cmd[[highlight normal guibg=none]]
@@ -53,7 +56,7 @@ vim.cmd[[inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"]]
 vim.cmd[[inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"]]
 
 vim.cmd[[inoremap <silent><expr> <C-Space> compe#complete()]]
-vim.cmd[[inoremap <silent><expr> <CR>      compe#confirm('<CR>') ]]
+vim.cmd[[inoremap <silent><expr> <C-y>      compe#confirm('<CR>') ]]
 vim.cmd[[inoremap <silent><expr> <C-e>     compe#close('<C-e>') ]]
 vim.cmd[[inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 }) ]]
 vim.cmd[[inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 }) ]]
@@ -82,7 +85,7 @@ key_mapper('n', '<c-k>', ':lua vim.lsp.buf.signature_help()<CR>')
 key_mapper('n', '<leader>af', ':lua vim.lsp.buf.code_action()<CR>')
 key_mapper('n', '<leader>rn', ':lua vim.lsp.buf.rename()<CR>')
 key_mapper('n', '<leader>s', ':lua require"telescope.builtin".find_files({hidden = true})<CR>')
-key_mapper('n', '<leader>fs', ':lua require"telescope.builtin".live_grep()<CR>')
+key_mapper('n', '<leader>f', ':lua require"telescope.builtin".live_grep()<CR>')
 key_mapper('n', '<leader>fh', ':lua require"telescope.builtin".help_tags()<CR>')
 key_mapper('n', '<leader>fb', ':lua require"telescope.builtin".buffers()<CR>')
 key_mapper('n', '<Tab>', ':bnext<CR>')
@@ -140,6 +143,7 @@ packer.startup(function()
   use 'nvim-lua/telescope.nvim'
   use 'jremmen/vim-ripgrep'
 
+  use 'janko/vim-test'
   use 'preservim/nerdtree'
   use 'mbbill/undotree'
   use 'tpope/vim-fugitive'
