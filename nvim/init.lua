@@ -26,7 +26,7 @@ wo.wrap = false
 
 wo.cursorcolumn = true
 o.list = true
-o.number = true
+wo.number = true
 wo.numberwidth = 2
 o.laststatus = 2
 wo.listchars='eol:¬,tab:>·,trail:.,extends:>,precedes:<,space:.'
@@ -40,6 +40,7 @@ vim.g['airline#extensions#tabline#formatter'] = 'unique_tail'
 vim.g.airline_section_y=''
 vim.g.airline_skip_empty_sections = 1
 vim.g.mapleader = ' '
+--vim.g.user_emmet_leader_key = '<C-y>'
 
 vim.cmd[[colorscheme gloombuddy]]
 vim.cmd[[highlight normal guibg=none]]
@@ -50,6 +51,12 @@ vim.cmd[[hi LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE g
 vim.cmd[[inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"]]
 vim.cmd[[inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"]]
 vim.cmd[[inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"]]
+
+vim.cmd[[inoremap <silent><expr> <C-Space> compe#complete()]]
+vim.cmd[[inoremap <silent><expr> <CR>      compe#confirm('<CR>') ]]
+vim.cmd[[inoremap <silent><expr> <C-e>     compe#close('<C-e>') ]]
+vim.cmd[[inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 }) ]]
+vim.cmd[[inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 }) ]]
 
 local key_mapper = function(mode, key, result)
   vim.api.nvim_set_keymap(
@@ -97,6 +104,7 @@ key_mapper('n', '<leader>k', '<C-w><C-k>')
 key_mapper('n', '<leader>l', '<C-w><C-l>')
 key_mapper('n', '<leader>h', '<C-w><C-h>')
 key_mapper('n', '<leader>p', ':PrettierAsync<CR>')
+key_mapper('n', '<esc>', ':noh<return><esc>')
 
 local vim = vim
 local execute = vim.api.nvim_command
@@ -119,13 +127,19 @@ packer.startup(function()
   local use = use
   use 'nvim-treesitter/nvim-treesitter'
   use 'sheerun/vim-polyglot'
+  use 'mattn/emmet-vim'
+
+  -- LSP
   use 'neovim/nvim-lspconfig'
-  use 'nvim-lua/completion-nvim'
   use 'anott03/nvim-lspinstall'
+  use 'hrsh7th/nvim-compe'
+
+  -- Telescope
   use 'nvim-lua/popup.nvim'
   use 'nvim-lua/plenary.nvim'
   use 'nvim-lua/telescope.nvim'
   use 'jremmen/vim-ripgrep'
+
   use 'preservim/nerdtree'
   use 'mbbill/undotree'
   use 'tpope/vim-fugitive'
@@ -165,11 +179,39 @@ telescope.setup {
   }
 }
 
+require'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+  documentation = true;
+
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    vsnip = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    spell = true;
+    tags = true;
+    snippets_nvim = true;
+    treesitter = true;
+  };
+}
+
 local function setup_diagnostics()
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
       underline = true,
-      virtual_text = false,
+      virtual_text = true,
       signs = true,
       update_in_insert = true,
     }
@@ -178,11 +220,9 @@ end
 -- add setup_diagnostics() to our custom_on_attach
 
 local lspconfig = require'lspconfig'
-local completion = require'completion'
 local function custom_on_attach(client)
   print('Attaching to ' .. client.name)
   setup_diagnostics()
-  completion.on_attach(client)
 end
 local default_config = {
   on_attach = custom_on_attach,
