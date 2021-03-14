@@ -32,7 +32,7 @@ o.laststatus = 2
 wo.listchars='eol:¬,tab:>·,trail:.,extends:>,precedes:<,space:.'
 
 vim.g.airline_theme='base16'
-vim.g.github_enterprise_urls = {'https://github.prod.hulu.com'}
+vim.g.github_enterprise_urls = { 'https://github.prod.hulu.com' }
 vim.g.airline_powerline_fonts = 1
 vim.g['airline#extensions#tabline#enabled'] = 1
 vim.g['airline#extensions#tabline#buffer_min_count'] = 2
@@ -40,7 +40,7 @@ vim.g['airline#extensions#tabline#formatter'] = 'unique_tail'
 vim.g.airline_section_y=''
 vim.g.airline_skip_empty_sections = 1
 vim.g.mapleader = ' '
---vim.g.user_emmet_leader_key = '<C-y>'
+
 vim.g['test#strategy'] = 'neovim'
 vim.g['test#neovim#term_position'] = 'vertical'
 vim.g['test#javascript#jest#options'] = '--watch'
@@ -51,9 +51,50 @@ vim.cmd[[highlight CursorColumn guibg=#404040]]
 vim.cmd[[hi CursorLineNr   term=bold ctermfg=Yellow gui=bold guifg=Yellow]]
 vim.cmd[[hi LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE]]
 
-vim.cmd[[inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"]]
-vim.cmd[[inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"]]
-vim.cmd[[inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"]]
+--vim.cmd[[inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"]]
+--vim.cmd[[inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"]]
+--vim.cmd[[inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"]]
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local check_back_space = function()
+    local col = vim.fn.col('.') - 1
+    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+        return true
+    else
+        return false
+    end
+end
+
+-- Use (s-)tab to:
+--- move to prev/next item in completion menuone
+--- jump to prev/next snippet's placeholder
+_G.tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-n>"
+  elseif vim.fn.call("vsnip#available", {1}) == 1 then
+    return t "<Plug>(vsnip-expand-or-jump)"
+  elseif check_back_space() then
+    return t "<Tab>"
+  else
+    return vim.fn['compe#complete']()
+  end
+end
+_G.s_tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-p>"
+  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
+    return t "<Plug>(vsnip-jump-prev)"
+  else
+    return t "<S-Tab>"
+  end
+end
+
+vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
 vim.cmd[[inoremap <silent><expr> <C-Space> compe#complete()]]
 vim.cmd[[inoremap <silent><expr> <C-y>      compe#confirm('<CR>') ]]
@@ -74,6 +115,7 @@ key_mapper('', '<up>', '<nop>')
 key_mapper('', '<down>', '<nop>')
 key_mapper('', '<left>', '<nop>')
 key_mapper('', '<right>', '<nop>')
+key_mapper('n', 'gd', ':lua vim.lsp.buf.definition()<CR>')
 key_mapper('n', 'gD', ':lua vim.lsp.buf.declaration()<CR>')
 key_mapper('n', 'gi', ':lua vim.lsp.buf.implementation()<CR>')
 key_mapper('n', 'gw', ':lua vim.lsp.buf.document_symbol()<CR>')
@@ -108,6 +150,7 @@ key_mapper('n', '<leader>l', '<C-w><C-l>')
 key_mapper('n', '<leader>h', '<C-w><C-h>')
 key_mapper('n', '<leader>p', ':PrettierAsync<CR>')
 key_mapper('n', '<esc>', ':noh<return><esc>')
+
 
 local vim = vim
 local execute = vim.api.nvim_command
@@ -147,6 +190,7 @@ packer.startup(function()
   use 'preservim/nerdtree'
   use 'mbbill/undotree'
   use 'tpope/vim-fugitive'
+  use 'tpope/vim-rhubarb'
   use 'jiangmiao/auto-pairs'
   use 'tpope/vim-surround'
   use 'scrooloose/nerdcommenter'
@@ -201,12 +245,12 @@ require'compe'.setup {
     path = true;
     buffer = true;
     calc = true;
-    vsnip = true;
+    --vsnip = true;
     nvim_lsp = true;
     nvim_lua = true;
     spell = true;
     tags = true;
-    snippets_nvim = true;
+    --snippets_nvim = true;
     treesitter = true;
   };
 }
