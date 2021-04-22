@@ -191,8 +191,8 @@ noremap <Right> <Nop>
 
 " the below didnt play with HTML, it kept auto selecting first suggestion
 "lua require'lspconfig'.tsserver.setup{ on_attach=require'completion'.on_attach }
-lua require'lspconfig'.tsserver.setup{}
-lua require'lspconfig'.bashls.setup{ on_attach=require'completion'.on_attach }
+"lua require'lspconfig'.tsserver.setup{}
+"lua require'lspconfig'.bashls.setup{ on_attach=require'completion'.on_attach }
 
 " GO options
 nnoremap <leader>gi :GoImports<CR>
