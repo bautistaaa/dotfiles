@@ -1,3 +1,4 @@
+require'trash.plugins'
 require'trash.mappings'
 require'trash.lsp'
 require'trash.lspsaga'
