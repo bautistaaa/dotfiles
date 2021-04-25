@@ -21,22 +21,24 @@ end
 -- For plugins that use a setup() function for configurations
 local function plugins_setup()
   local saga = require 'lspsaga'
-  saga.init_lsp_saga()
+  saga.init_lsp_saga {
+    code_action_prompt = { enable = true }
+  }
 
   -- Treesitter options
   require 'nvim-treesitter.configs'.setup {
     ensure_installed = {
-    'css',
-    'graphql',
-    'html',
-    'javascript',
-    'json',
-    'lua',
-    'python',
-    'tsx',
-    'typescript',
-    'svelte'
-  },
+      'css',
+      'graphql',
+      'html',
+      'javascript',
+      'json',
+      'lua',
+      'python',
+      'tsx',
+      'typescript',
+      'svelte'
+    },
     highlight = { enable = true }
   }
 
@@ -84,12 +86,13 @@ local function plugins_setup()
   }
 
   -- LSP options
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  requren 'nvim-ale-diagnostic'
+  vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
-      underline = true,
-      virtual_text = true,
+      underline = false,
+      virtual_text = false,
       signs = true,
-      update_in_insert = true,
+      update_in_insert = false,
     }
   )
 
@@ -98,36 +101,11 @@ local function plugins_setup()
     print('Attaching to ' .. client.name)
   end
   local default_config = { on_attach = on_attach }
-  -- require 'diagnosticls-nvim'.init {
-  --   on_attach = on_attach -- Your custom attach function
-  -- }
-
 
   -- Language Servers Here
   lspconfig.tsserver.setup(vim.tbl_extend('force', default_config, {
     -- Extra options here
   }))
-
-  -- local eslint = require 'diagnosticls-nvim.linters.eslint'
-  -- local prettier = require 'diagnosticls-nvim.formatters.prettier'
-  -- require 'diagnosticls-nvim'.setup {
-  --   ['javascript'] = {
-  --     linter = eslint,
-  --     formatter = prettier
-  --   },
-  --   ['javascriptreact'] = {
-  --     linter = eslint,
-  --     formatter = prettier
-  --   },
-  --   ['typescript'] = {
-  --     linter = eslint,
-  --     formatter = prettier
-  --   },
-  --   ['typescriptreact'] = {
-  --     linter = eslint,
-  --     formatter = prettier
-  --   }
-  -- }
 end
 
 -- Global key mapper
@@ -175,11 +153,11 @@ end
 --- jump to prev/next snippet's placeholder
 _G.tab_complete = function()
   if vim.fn.pumvisible() == 1 then
-    return t "<C-n>"
-  -- elseif vim.fn.call("vsnip#available", {1}) == 1 then
-  --   return t "<Plug>(vsnip-expand-or-jump)"
+    return t '<C-n>'
+  -- elseif vim.fn.call('vsnip#available', {1}) == 1 then
+  --   return t '<Plug>(vsnip-expand-or-jump)'
   elseif check_back_space() then
-    return t "<Tab>"
+    return t '<Tab>'
   else
     return vim.fn['compe#complete']()
   end
@@ -187,11 +165,11 @@ end
 
 _G.s_tab_complete = function()
   if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
-  -- elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
-  --   return t "<Plug>(vsnip-jump-prev)"
+    return t '<C-p>'
+  -- elseif vim.fn.call('vsnip#jumpable', {-1}) == 1 then
+  --   return t '<Plug>(vsnip-jump-prev)'
   else
-    return t "<S-Tab>"
+    return t '<S-Tab>'
   end
 end
 
@@ -236,8 +214,8 @@ packer.startup(function(use)
   use 'neovim/nvim-lspconfig'
   use 'anott03/nvim-lspinstall'
   use 'hrsh7th/nvim-compe'
-  -- use 'creativenull/diagnosticls-nvim'
   use 'dense-analysis/ale'
+  use 'nathunsmitty/nvim-ale-diagnostic'
   use 'glepnir/lspsaga.nvim'
 
   -- Theme/Syntax
@@ -343,12 +321,17 @@ key_mapper('n', 'gW',         '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 key_mapper('n', 'gr',         '<cmd>lua vim.lsp.buf.references()<CR>')
 key_mapper('n', 'gt',         '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 -- key_mapper('n', 'K',          '<cmd>lua vim.lsp.buf.hover()<CR>')
-key_mapper('n', '<c-k>',      '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-key_mapper('n', '<leader>af', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-key_mapper('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+key_mapper('n', 'K',          '<cmd>Lspsaga hover_doc<CR>')
+-- key_mapper('n', '<c-k>',      '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+key_mapper('n', '<c-k>',      '<cmd>Lspsaga signature_help<CR>')
+-- key_mapper('n', '<leader>af', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+key_mapper('n', '<leader>af', '<cmd>Lspsaga code_action<CR>')
+-- key_mapper('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+key_mapper('n', '<leader>rn', '<cmd>Lspsaga rename<CR>')
 key_mapper('n', '<leader>p',  '<cmd>lua vim.lsp.buf.formatting()<CR>')
--- key_mapper('n', '<leader>le', [[<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>]])
-key_mapper('n', '<leader>s',  '<cmd>lua require"telescope.builtin".find_files({hidden = true})<CR>')
+key_mapper('n', '<leader>le', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
+key_mapper('n', '<leader>ls', '<cmd>Lspsaga show_line_diagnostics<CR>')
+key_mapper('n', '<leader>s',  '<cmd>lua require"telescope.builtin".find_files({ hidden = true })<CR>')
 key_mapper('n', '<leader>f',  '<cmd>lua require"telescope.builtin".live_grep()<CR>')
 key_mapper('n', '<leader>fh', '<cmd>lua require"telescope.builtin".help_tags()<CR>')
 key_mapper('n', '<leader>fb', '<cmd>lua require"telescope.builtin".buffers()<CR>')
@@ -372,9 +355,7 @@ key_mapper('n', '<leader>l',  '<C-w><C-l>')
 key_mapper('n', '<leader>h',  '<C-w><C-h>')
 key_mapper('n', '<esc>',      '<cmd>noh<return><esc>')
 key_mapper('n', '<leader>lo', ':lopen<CR>')
-key_mapper('n', 'K', ':Lspsaga hover_doc<CR>')
--- key_mapper('n', '<leader>ls', ':Lspsaga show_line_diagnostics<CR>')
 
---vim.cmd[[inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"]]
---vim.cmd[[inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"]]
---vim.cmd[[inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"]]
+--vim.cmd[[inoremap <expr> <Tab> pumvisible() ? '\<C-n>' : '\<Tab>']]
+--vim.cmd[[inoremap <expr> <S-Tab> pumvisible() ? '\<C-p>' : '\<S-Tab>']]
+--vim.cmd[[inoremap <expr> <CR> pumvisible() ? '\<C-y>' : '\<C-g>u\<CR>']]
