@@ -1,17 +1,10 @@
 local M = {}
 
--- Thanks teej!
-M.key_mapper = function(mode, key, result)
-  -- use nvim_buf_set_keymap instead to allow buftype specific keymaps
-  -- this isn't currently working however
-  -- vim.api.nvim_buf_set_keymap('%', mode, key, result, {noremap = true, silent = true})
-  -- use vim.api.nvim_buf_get_option(0, 'filetype') to check filetype
-  vim.api.nvim_set_keymap(mode, key, result, {noremap = true, silent = true})
-end
-
-function ReloadConfig()
-  print('Reloading config')
-  require'plenary.reload'.reload_module('melkey')
+M.key_mapper = function(mode, lhs, rhs, opts)
+  local def_opts = { noremap = true, silent = true }
+  if opts == nil then opts = {} end
+  local keyopts = vim.tbl_extend('force', def_opts, opts)
+  vim.api.nvim_set_keymap(mode, lhs, rhs, keyopts)
 end
 
 return M
