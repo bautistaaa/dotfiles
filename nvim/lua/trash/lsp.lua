@@ -25,11 +25,11 @@ local function default_on_attach(client)
   lsp_map('n', 'gW',         '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
   lsp_map('n', 'gr',         '<cmd>lua vim.lsp.buf.references()<CR>')
   lsp_map('n', 'gt',         '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-  lsp_map('n', '<c-k>',      '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+  -- lsp_map('n', '<c-k>',      '<cmd>lua vim.lsp.buf.signature_help()<CR>')
   -- lsp_map('n', '<leader>af', '<cmd>lua vim.lsp.buf.code_action()<CR>')
   --  see lspsaga for alternative
   -- lsp_map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-  lsp_map('n', '<leader>p',  '<cmd>lua vim.lsp.buf.formatting()<CR>')
+  -- lsp_map('n', '<leader>p',  '<cmd>lua vim.lsp.buf.formatting()<CR>')
   lsp_map('n', '<leader>le', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
 
 end
