@@ -43,7 +43,6 @@ local setup_mappings = function()
     utils.key_mapper('n', '<leader>h',  '<C-w><C-h>')
     utils.key_mapper('n', '<esc>',      '<cmd>noh<return><esc>')
     utils.key_mapper('n', '<leader>lo', ':lopen<CR>')
-    utils.key_mapper('n', 'K', ':Lspsaga hover_doc<CR>')
     utils.key_mapper('n', '<leader>p', ':PrettierAsync<CR>')
 end
 

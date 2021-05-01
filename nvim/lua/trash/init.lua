@@ -5,4 +5,5 @@ require'trash.lspsaga'
 require'trash.telescope'
 require'trash.compe'
 require'trash.treesitter'
-
+require'trash.lualine'
+require'trash.bufferline'

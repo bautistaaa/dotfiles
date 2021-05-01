@@ -79,29 +79,29 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/auto-pairs"
   },
-  ["colorbuddy.nvim"] = {
-    loaded = true,
-    path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/colorbuddy.nvim"
-  },
   ["emmet-vim"] = {
     loaded = true,
     path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/emmet-vim"
   },
-  gloombuddy = {
+  ["iceberg.vim"] = {
     loaded = true,
-    path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/gloombuddy"
+    path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/iceberg.vim"
   },
   ["lspsaga.nvim"] = {
     loaded = true,
     path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/lspsaga.nvim"
   },
-  ["material.nvim"] = {
+  ["lualine.nvim"] = {
     loaded = true,
-    path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/material.nvim"
+    path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/lualine.nvim"
   },
   nerdtree = {
     loaded = true,
     path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/nerdtree"
+  },
+  ["nord-vim"] = {
+    loaded = true,
+    path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/nord-vim"
   },
   ["nvim-ale-diagnostic"] = {
     loaded = true,
@@ -110,6 +110,10 @@ _G.packer_plugins = {
   ["nvim-bqf"] = {
     loaded = true,
     path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/nvim-bqf"
+  },
+  ["nvim-bufferline.lua"] = {
+    loaded = true,
+    path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/nvim-bufferline.lua"
   },
   ["nvim-compe"] = {
     loaded = true,
@@ -126,6 +130,14 @@ _G.packer_plugins = {
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = true,
+    path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"
+  },
+  ["onedark.vim"] = {
+    loaded = true,
+    path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/onedark.vim"
   },
   ["packer.nvim"] = {
     loaded = false,
@@ -144,21 +156,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/telescope.nvim"
   },
+  ["tokyonight.nvim"] = {
+    loaded = true,
+    path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/tokyonight.nvim"
+  },
   undotree = {
     loaded = true,
     path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/undotree"
-  },
-  ["vim-airline"] = {
-    loaded = true,
-    path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/vim-airline"
-  },
-  ["vim-airline-themes"] = {
-    loaded = true,
-    path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/vim-airline-themes"
-  },
-  ["vim-colors-xcode"] = {
-    loaded = true,
-    path = "/Users/chris.bautista/.local/share/nvim/site/pack/packer/start/vim-colors-xcode"
   },
   ["vim-commentary"] = {
     loaded = true,

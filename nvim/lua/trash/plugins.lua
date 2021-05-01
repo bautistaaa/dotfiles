@@ -23,7 +23,6 @@ return packer.startup(function()
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
     use { 'nvim-lua/telescope.nvim', requires = { 'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim' } }
-    -- use 'jremmen/vim-ripgrep'
 
     -- Core
     use 'janko/vim-test'
@@ -36,30 +35,21 @@ return packer.startup(function()
     use 'tpope/vim-fugitive'
     use 'kevinhwang91/nvim-bqf'
     use { 'tpope/vim-rhubarb', requires = { 'tpope/vim-fugitive' } }
+    use { 'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons' }
 
     -- LSP
     use 'neovim/nvim-lspconfig'
     use 'anott03/nvim-lspinstall'
     use 'hrsh7th/nvim-compe'
-    -- use 'creativenull/diagnosticls-nvim'
     use 'dense-analysis/ale'
     use 'nathunsmitty/nvim-ale-diagnostic'
     use 'glepnir/lspsaga.nvim'
 
     -- Theme/Syntax
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    -- use 'sheerun/vim-polyglot'
-    use 'vim-airline/vim-airline'
-    use 'vim-airline/vim-airline-themes'
-    -- these are optional themes but I hear good things about gloombuddy ;)
-    -- colorbuddy allows us to run the gloombuddy theme
-    use 'tjdevries/colorbuddy.nvim'
-    use { 'bkegley/gloombuddy', requires = { 'tjdevries/colorbuddy.nvim' } }
-    use 'arzg/vim-colors-xcode'
-    use 'marko-cerovac/material.nvim'
-    -- sneaking some formatting in here too
-    -- more like comment out that sneak ;)
+    use { 'hoob3rt/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true} }
     use { 'prettier/vim-prettier', run = 'yarn install' }
+    use 'arcticicestudio/nord-vim'
 
 end
 )
