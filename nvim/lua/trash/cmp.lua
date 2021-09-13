@@ -1,3 +1,5 @@
+local cmp = require('cmp')
+
 local function t(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
@@ -36,31 +38,26 @@ _G.s_tab_complete = function()
   end
 end
 
-require 'compe'.setup {
-  enabled = true,
-  autocomplete = true,
-  debug = false,
-  min_length = 1,
-  preselect = 'enable',
-  throttle_time = 80,
-  source_timeout = 200,
-  incomplete_delay = 400,
-  max_abbr_width = 100,
-  max_kind_width = 100,
-  max_menu_width = 100,
-  documentation = true,
-
-  source = {
-    path = true,
-    buffer = true,
-    -- calc = true,
-    --vsnip = true,
-    nvim_lsp = true,
-    nvim_lua = true,
-    spell = true,
-    -- tags = true,
-    -- snippets_nvim = true,
-    -- treesitter = true,
+cmp.setup({
+  mapping = {
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
   },
-}
 
+  -- You should specify your *installed* sources.
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'ultisnips' },
+  },
+
+  formatting = {
+    format = function(entry, item)
+      item.menu = ({
+        nvim_lsp = '[lsp]',
+        ultisnips = '[ultisnips]',
+      })[entry.source.name]
+
+      return item
+    end,
+  },
+})

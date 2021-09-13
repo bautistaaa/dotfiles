@@ -42,7 +42,7 @@ local pid = vim.fn.getpid()
 local cache_path = vim.fn.stdpath('cache')
 --
 -- Language Servers
-lspconfig.pyls.setup(default_config)
+-- lspconfig.pyls.setup(default_config)
 lspconfig.bashls.setup(default_config)
 lspconfig.cssls.setup(default_config)
 lspconfig.dockerls.setup(default_config)

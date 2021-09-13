@@ -10,7 +10,7 @@ vim.cmd 'au ColorScheme * hi! CursorColumn guibg=#404040'
 vim.cmd 'au ColorScheme * hi! CursorLineNr term=bold ctermfg=Yellow gui=bold guifg=Yellow'
 vim.cmd 'au ColorScheme * hi! LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE'
 vim.cmd 'augroup END'
-vim.cmd 'colorscheme nord'
+vim.cmd 'colorscheme onedark'
 
 -- ====================================================================================
 -- Theme
