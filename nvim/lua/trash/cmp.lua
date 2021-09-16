@@ -24,7 +24,7 @@ _G.tab_complete = function()
   elseif check_back_space() then
     return t "<Tab>"
   else
-    return vim.fn['compe#complete']()
+    return vim.fn['cmp#complete']()
   end
 end
 
@@ -39,6 +39,12 @@ _G.s_tab_complete = function()
 end
 
 cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["UltiSnips#Anon"](args.body)
+    end,
+  },
+
   mapping = {
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-y>'] = cmp.mapping.confirm({ select = true }),

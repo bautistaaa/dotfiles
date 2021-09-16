@@ -45,6 +45,10 @@ return packer.startup(function()
     use 'glepnir/lspsaga.nvim'
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
+
+    -- Snippets
+    use 'honza/vim-snippets'
+    use 'SirVer/ultisnips'
     use 'quangnguyen30192/cmp-nvim-ultisnips'
 
     -- Theme/Syntax
