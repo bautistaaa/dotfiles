@@ -40,16 +40,10 @@ return packer.startup(function()
     -- LSP
     use 'neovim/nvim-lspconfig'
     use 'anott03/nvim-lspinstall'
+    use 'hrsh7th/nvim-compe'
     use 'dense-analysis/ale'
     use 'nathunsmitty/nvim-ale-diagnostic'
     use 'glepnir/lspsaga.nvim'
-    use 'hrsh7th/nvim-cmp'
-    use 'hrsh7th/cmp-nvim-lsp'
-
-    -- Snippets
-    use 'honza/vim-snippets'
-    use 'SirVer/ultisnips'
-    use 'quangnguyen30192/cmp-nvim-ultisnips'
 
     -- Theme/Syntax
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
