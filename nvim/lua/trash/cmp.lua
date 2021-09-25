@@ -1,43 +1,13 @@
 local cmp = require('cmp')
 
-local function t(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
+-- Add js/ts snippets for jsx/tsx files
+vim.cmd 'augroup ultisnips_user_events'
+vim.cmd 'au!'
+vim.cmd 'au FileType javascriptreact UltiSnipsAddFiletypes javascript'
+vim.cmd 'au FileType typescriptreact UltiSnipsAddFiletypes typescript'
+vim.cmd 'augroup END'
 
-local function check_back_space()
-  local col = vim.fn.col('.') - 1
-  if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-    return true
-  else
-    return false
-  end
-end
-
--- Use (s-)tab to:
---- move to prev/next item in completion menuone
---- jump to prev/next snippet's placeholder
-_G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-n>"
-  -- elseif vim.fn.call("vsnip#available", {1}) == 1 then
-  --   return t "<Plug>(vsnip-expand-or-jump)"
-  elseif check_back_space() then
-    return t "<Tab>"
-  else
-    return vim.fn['cmp#complete']()
-  end
-end
-
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
-  -- elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
-  --   return t "<Plug>(vsnip-jump-prev)"
-  else
-    return t "<S-Tab>"
-  end
-end
-
+-- Setup nvim-cmp
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -48,6 +18,8 @@ cmp.setup({
   mapping = {
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
+    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i'}),
+    ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), {'i'}),
   },
 
   -- You should specify your *installed* sources.
