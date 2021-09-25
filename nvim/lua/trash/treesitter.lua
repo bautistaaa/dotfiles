@@ -1,5 +1,5 @@
-  require 'nvim-treesitter.configs'.setup {
-    ensure_installed = {
+require 'nvim-treesitter.configs'.setup {
+  ensure_installed = {
     'css',
     'graphql',
     'html',
@@ -9,8 +9,7 @@
     'python',
     'tsx',
     'typescript',
-    'svelte'
+    'svelte',
   },
-    highlight = { enable = true }
-  }
-
+  highlight = { enable = true },
+}
