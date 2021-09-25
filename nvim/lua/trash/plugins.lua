@@ -44,6 +44,9 @@ return packer.startup(function()
     use 'dense-analysis/ale'
     use 'nathunsmitty/nvim-ale-diagnostic'
     use 'glepnir/lspsaga.nvim'
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-nvim-lsp'
+    use {'ray-x/navigator.lua', requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'}}
 
     -- Theme/Syntax
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
