@@ -1,17 +1,31 @@
-local cmp = require('cmp')
+local utils = require 'trash.utils'
+local cmp = require 'cmp'
 
--- Add js/ts snippets for jsx/tsx files
-vim.cmd 'augroup ultisnips_user_events'
-vim.cmd 'au!'
-vim.cmd 'au FileType javascriptreact UltiSnipsAddFiletypes javascript'
-vim.cmd 'au FileType typescriptreact UltiSnipsAddFiletypes typescript'
-vim.cmd 'augroup END'
+-- UltiSnips
+-- vim.cmd 'augroup ultisnips_user_events'
+-- vim.cmd 'au!'
+-- vim.cmd 'au FileType javascriptreact UltiSnipsAddFiletypes javascript'
+-- vim.cmd 'au FileType typescriptreact UltiSnipsAddFiletypes typescript'
+-- vim.cmd 'augroup END'
+
+-- vsnip
+vim.g.vsnip_filetypes = {
+  javascriptreact = {'javascript'},
+  typescriptreact = {'typescript'},
+}
+
+local keyopts = { expr = true, noremap = false }
+utils.key_mapper('i', '<C-j>', 'vsnip#jumpable(1)  ? "\\<Plug>(vsnip-jump-next)" : "\\<Tab>"', keyopts)
+utils.key_mapper('s', '<C-j>', 'vsnip#jumpable(1)  ? "\\<Plug>(vsnip-jump-next)" : "\\<Tab>"', keyopts)
+utils.key_mapper('i', '<C-k>', 'vsnip#jumpable(-1) ? "\\<Plug>(vsnip-jump-prev)" : "\\<S-Tab>"', keyopts)
+utils.key_mapper('s', '<C-k>', 'vsnip#jumpable(-1) ? "\\<Plug>(vsnip-jump-prev)" : "\\<S-Tab>"', keyopts)
 
 -- Setup nvim-cmp
-cmp.setup({
+cmp.setup {
   snippet = {
     expand = function(args)
-      vim.fn["UltiSnips#Anon"](args.body)
+      -- vim.fn["UltiSnips#Anon"](args.body)
+      vim.fn['vsnip#anonymous'](args.body)
     end,
   },
 
@@ -25,17 +39,19 @@ cmp.setup({
   -- You should specify your *installed* sources.
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'ultisnips' },
+    -- { name = 'ultisnips' },
+    { name = 'vsnip' },
   },
 
   formatting = {
     format = function(entry, item)
       item.menu = ({
         nvim_lsp = '[lsp]',
-        ultisnips = '[ultisnips]',
+        -- ultisnips = '[ultisnips]',
+        vsnip = '[vsnip]',
       })[entry.source.name]
 
       return item
     end,
   },
-})
+}
