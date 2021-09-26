@@ -45,11 +45,19 @@ packer.startup(function(use)
   -- use {'ray-x/navigator.lua', requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'}}
 
   -- Autocompletion and Snippets
+  -- use {'SirVer/ultisnips', requires = {'honza/vim-snippets'}}
+  use {'hrsh7th/vim-vsnip', requires = {'hrsh7th/vim-vsnip-integ', 'rafamadriz/friendly-snippets'}}
+
   use {'hrsh7th/nvim-cmp', requires = {
+    -- LSP source
     {'hrsh7th/cmp-nvim-lsp'},
-    {'quangnguyen30192/cmp-nvim-ultisnips'},
+
+    -- Ultisnips Source
+    -- {'quangnguyen30192/cmp-nvim-ultisnips'},
+
+    -- VSnip Source
+    {'hrsh7th/cmp-vsnip'},
   }}
-  use {'SirVer/ultisnips', requires = {'honza/vim-snippets'}}
 
   -- Theme/Syntax
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
