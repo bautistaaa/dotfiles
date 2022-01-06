@@ -60,6 +60,8 @@ packer.startup(function(use)
   }}
 
   -- Theme/Syntax
+  use 'ryanoasis/vim-devicons'
+  use 'kyazdani42/nvim-web-devicons'
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use { 'hoob3rt/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true} }
   use { 'prettier/vim-prettier', run = 'yarn install' }
