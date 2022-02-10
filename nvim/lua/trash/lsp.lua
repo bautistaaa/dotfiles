@@ -1,9 +1,7 @@
 local lspconfig = require 'lspconfig'
 
--- Diagnostics
-pcall(require, 'nvim-ale-diagnostic')
-
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+-- Global diagnostic config
+vim.diagnostic.config({
   virtual_text = true,
   underline = { severity_limit = "Error" },
   signs = true,
@@ -38,7 +36,7 @@ local function lsp_map(mode, left_side, right_side)
   vim.api.nvim_buf_set_keymap(vim.api.nvim_get_current_buf(), mode, left_side, right_side, { noremap = true })
 end
 
-local function on_attach(client)
+local function on_attach(client, bufnr)
   print('Attaching to ' .. client.name)
 
   lsp_map('n', 'gd',         '<cmd>lua vim.lsp.buf.definition()<CR>')
@@ -48,17 +46,27 @@ local function on_attach(client)
   lsp_map('n', 'gW',         '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
   lsp_map('n', 'gr',         '<cmd>lua vim.lsp.buf.references()<CR>')
   lsp_map('n', 'gt',         '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-  lsp_map('n', '<leader>le', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
+  lsp_map('n', '<leader>le', '<cmd>lua vim.diagnostic.setloclist()<CR>')
   lsp_map('n', '<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
   lsp_map('n', '<leader>lw', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 
   -- Replacement for lspsaga
-  local diag_opts = '{ width = 80, focusable = false, border = "single" }'
   lsp_map('n', 'K',          '<cmd>lua vim.lsp.buf.hover()<CR>')
   lsp_map('n', '<c-k>',      '<cmd>lua vim.lsp.buf.signature_help()<CR>')
   lsp_map('n', '<leader>af', '<cmd>lua vim.lsp.buf.code_action()<CR>')
   lsp_map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-  lsp_map('n', '<leader>ls', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics('.. diag_opts ..')<CR>')
+
+  local diag_opts = '{ width = 80, focusable = false, border = "single" }'
+  lsp_map(
+    'n',
+    '<leader>ls',
+    string.format('<cmd>lua vim.diagnostic.open_float(%d, %s)<CR>', bufnr, diag_opts)
+  )
+
+  -- disable formatting from tsserver
+  if client.name == 'tsserver' then
+    client.resolved_capabilities.document_formatting = false
+  end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -86,6 +94,40 @@ lspconfig.tsserver.setup(default_config)
 lspconfig.vimls.setup(default_config)
 lspconfig.yamlls.setup(default_config)
 
+local efm = require('efmls-configs')
+efm.init(vim.tbl_extend('force', default_config, {
+  init_options = {
+    documentFormatting = true, -- enable formatting
+  },
+}))
+efm.setup({
+  javascript = {
+    linter = require('efmls-configs.linters.eslint'),
+    formatter = require('efmls-configs.formatters.prettier'),
+  },
+  javascriptreact = {
+    linter = require('efmls-configs.linters.eslint'),
+    formatter = require('efmls-configs.formatters.prettier'),
+  },
+  typescript = {
+    linter = require('efmls-configs.linters.eslint'),
+    formatter = require('efmls-configs.formatters.prettier'),
+  },
+  typescriptreact = {
+    linter = require('efmls-configs.linters.eslint'),
+    formatter = require('efmls-configs.formatters.prettier'),
+  },
+})
+
+-- local nls = require('null-ls')
+-- nls.setup({
+--   sources = {
+--     require("null-ls").builtins.formatting.stylua,
+--     require("null-ls").builtins.formatting.prettier,
+--     require("null-ls").builtins.diagnostics.eslint,
+--   },
+-- })
+
 --[[
 -- Lua language server
 local root_pattern = require 'lspconfig'.util.root_pattern
@@ -95,7 +137,6 @@ table.insert(lua_rtp, 'lua/?.lua')
 table.insert(lua_rtp, 'lua/?/init.lua')
 
 lspconfig.sumneko_lua.setup(vim.tbl_extend('force', default_config, {
-  cmd = {'luals'},
   settings = {
     Lua = {
       runtime = {
