@@ -26,7 +26,14 @@ vim.cmd 'au ColorScheme * hi SignColumn guibg=NONE'
 vim.cmd 'au ColorScheme * hi CursorColumn guibg=#404040'
 vim.cmd 'au ColorScheme * hi CursorLineNr term=bold ctermfg=Yellow gui=bold guifg=Yellow'
 vim.cmd 'au ColorScheme * hi LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE'
-vim.cmd 'au ColorScheme * hi FloatBorder guifg=#eeeeee'
+
+-- Float borders
+vim.cmd 'au ColorScheme * hi NormalFloat guibg=NONE'
+vim.cmd 'au ColorScheme * hi FloatBorder guibg=NONE guifg=#eeeeee'
+vim.cmd 'au ColorScheme * hi ErrorFloat guibg=NONE'
+vim.cmd 'au ColorScheme * hi WarningFloat guibg=NONE'
+vim.cmd 'au ColorScheme * hi InfoFloat guibg=NONE'
+vim.cmd 'au ColorScheme * hi HintFloat guibg=NONE'
 vim.cmd 'augroup END'
 
 -- ====================================================================================
@@ -80,5 +87,6 @@ vim.opt.ttimeoutlen = 50
 vim.opt.ignorecase = true
 vim.opt.wildignorecase = true
 vim.opt.smarttab = true
+vim.opt.cursorline = true
 
 require 'trash'
