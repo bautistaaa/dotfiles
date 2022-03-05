@@ -88,5 +88,6 @@ vim.opt.ignorecase = true
 vim.opt.wildignorecase = true
 vim.opt.smarttab = true
 vim.opt.cursorline = true
+vim.opt.mouse = 'a';
 
 require 'trash'

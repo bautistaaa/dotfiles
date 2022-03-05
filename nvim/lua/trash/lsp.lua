@@ -2,7 +2,6 @@ local lspconfig = require 'lspconfig'
 
 -- Global diagnostic config
 vim.diagnostic.config({
-  virtual_text = true,
   underline = { severity_limit = "Error" },
   signs = true,
   update_in_insert = false,
@@ -47,8 +46,7 @@ local function on_attach(client, bufnr)
   lsp_map('n', 'gr',         '<cmd>lua vim.lsp.buf.references()<CR>')
   lsp_map('n', 'gt',         '<cmd>lua vim.lsp.buf.type_definition()<CR>')
   lsp_map('n', '<leader>le', '<cmd>lua vim.diagnostic.setloclist()<CR>')
-  lsp_map('n', '<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-  lsp_map('n', '<leader>lw', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+  lsp_map('n', '<leader>p', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 
   -- Replacement for lspsaga
   lsp_map('n', 'K',          '<cmd>lua vim.lsp.buf.hover()<CR>')
@@ -94,41 +92,40 @@ lspconfig.tsserver.setup(default_config)
 lspconfig.vimls.setup(default_config)
 lspconfig.yamlls.setup(default_config)
 
-local efm = require('efmls-configs')
-efm.init(vim.tbl_extend('force', default_config, {
-  init_options = {
-    documentFormatting = true, -- enable formatting
-  },
-}))
-efm.setup({
-  javascript = {
-    linter = require('efmls-configs.linters.eslint'),
-    formatter = require('efmls-configs.formatters.prettier'),
-  },
-  javascriptreact = {
-    linter = require('efmls-configs.linters.eslint'),
-    formatter = require('efmls-configs.formatters.prettier'),
-  },
-  typescript = {
-    linter = require('efmls-configs.linters.eslint'),
-    formatter = require('efmls-configs.formatters.prettier'),
-  },
-  typescriptreact = {
-    linter = require('efmls-configs.linters.eslint'),
-    formatter = require('efmls-configs.formatters.prettier'),
-  },
-})
-
--- local nls = require('null-ls')
--- nls.setup({
---   sources = {
---     require("null-ls").builtins.formatting.stylua,
---     require("null-ls").builtins.formatting.prettier,
---     require("null-ls").builtins.diagnostics.eslint,
+-- local efm = require('efmls-configs')
+-- efm.init(vim.tbl_extend('force', default_config, {
+--   init_options = {
+--     documentFormatting = true, -- enable formatting
+--   },
+-- }))
+-- efm.setup({
+--   javascript = {
+--     linter = require('efmls-configs.linters.eslint'),
+--     formatter = require('efmls-configs.formatters.prettier'),
+--   },
+--   javascriptreact = {
+--     linter = require('efmls-configs.linters.eslint'),
+--     formatter = require('efmls-configs.formatters.prettier'),
+--   },
+--   typescript = {
+--     linter = require('efmls-configs.linters.eslint'),
+--     formatter = require('efmls-configs.formatters.prettier'),
+--   },
+--   typescriptreact = {
+--     linter = require('efmls-configs.linters.eslint'),
+--     formatter = require('efmls-configs.formatters.prettier'),
 --   },
 -- })
 
---[[
+local nls = require('null-ls')
+nls.setup({
+  sources = {
+    require("null-ls").builtins.formatting.stylua,
+    require("null-ls").builtins.formatting.prettier,
+    require("null-ls").builtins.diagnostics.eslint,
+  },
+})
+
 -- Lua language server
 local root_pattern = require 'lspconfig'.util.root_pattern
 
@@ -149,4 +146,4 @@ lspconfig.sumneko_lua.setup(vim.tbl_extend('force', default_config, {
     },
   },
   root_dir = root_pattern('.luals'),
-})) ]]
+}))
