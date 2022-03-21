@@ -89,6 +89,7 @@ lspconfig.dockerls.setup(default_config)
 lspconfig.html.setup(default_config)
 lspconfig.jsonls.setup(default_config)
 lspconfig.tsserver.setup(default_config)
+lspconfig.tailwindcss.setup(default_config)
 lspconfig.vimls.setup(default_config)
 lspconfig.yamlls.setup(default_config)
 
@@ -146,4 +147,16 @@ lspconfig.sumneko_lua.setup(vim.tbl_extend('force', default_config, {
     },
   },
   root_dir = root_pattern('.luals'),
-}))
+})) 
+
+local tw_highlight = require('tailwind-highlight')
+lspconfig.tailwindcss.setup({
+  on_attach = function(client, bufnr)
+    -- rest of you config
+    tw_highlight.setup(client, bufnr, {
+      single_column = false,
+      mode = 'background',
+      debounce = 200,
+    })
+  end
+})
