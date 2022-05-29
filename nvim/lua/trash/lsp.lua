@@ -179,3 +179,5 @@ lspconfig.tsserver.setup {
     }
   }
 }
+
+lspconfig.gopls.setup(default_config)
