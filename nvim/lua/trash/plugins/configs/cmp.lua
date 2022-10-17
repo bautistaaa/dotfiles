@@ -6,18 +6,13 @@ vim.g.vsnip_filetypes = {
 	typescriptreact = { "typescript" },
 }
 
--- vim.keymap.set('i', '<C-j>', 'vsnip#jumpable(1)  ? "<Plug>(vsnip-jump-next)" : "<C-j>"', { desc = 'Vsnip jump to next node' })
--- vim.keymap.set('s', '<C-j>', 'vsnip#jumpable(1)  ? "<Plug>(vsnip-jump-next)" : "<C-j>"', { desc = 'Vsnip jump to next node' })
--- vim.keymap.set('i', '<C-k>', 'vsnip#jumpable(-1) ? "<Plug>(vsnip-jump-prev)" : "<S-Tab>"', { desc = 'Vsnip jump to previous node' })
--- vim.keymap.set('s', '<C-k>', 'vsnip#jumpable(-1) ? "<Plug>(vsnip-jump-prev)" : "<S-Tab>"', { desc = 'Vsnip jump to previous node' })
-
 local function has_words_before()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 local function feedkey(key, mode)
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
 -- Setup nvim-cmp
@@ -29,8 +24,9 @@ cmp.setup({
 	},
 
 	mapping = {
-		["<C-Space>"] = cmp.mapping.complete(),
+		["<C-Space>"] = cmp.mapping.complete({}),
 		["<C-y>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
+		["<CR>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
