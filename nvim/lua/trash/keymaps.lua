@@ -7,7 +7,6 @@ vim.keymap.set("i", "<Down>", "")
 vim.keymap.set("i", "<Left>", "")
 vim.keymap.set("i", "<Right>", "")
 
--- vim.keymap.set('n', '<Leader>oi', '<Cmd>OrganizeImports<CR>', { desc = 'Organize imports [TS]' })
 vim.keymap.set("n", "<Leader>x", "<Cmd>bd<CR>", { desc = "Close current buffer" })
 vim.keymap.set("n", "<Leader>xx", "<Cmd>%bd<CR>", { desc = "Close current buffer" })
 vim.keymap.set("n", "<Leader>j", "<C-w><C-j>", { desc = "Move cursor bottom window" })
@@ -17,7 +16,7 @@ vim.keymap.set("n", "<Leader>h", "<C-w><C-h>", { desc = "Move cursor right windo
 vim.keymap.set("n", "<Leader>r", ":%s/<C-r><C-w>/", { desc = "Replace word" })
 vim.keymap.set("n", "<Leader>w", "<Cmd>write<CR>", { desc = "Save current file" })
 
-vim.keymap.set("n", "<C-c>", "<Cmd>bp|bd #<CR>", { desc = "Safely close buffer" })
+vim.keymap.set("n", "<C-c>", "<Cmd>bp|bd #<CR>", { desc = "Close buffer, except the last one" })
 vim.keymap.set("n", "<Tab>", "<Cmd>bnext<CR>", { desc = "Go to next buffer" })
 vim.keymap.set("n", "<S-Tab>", "<Cmd>bprevious<CR>", { desc = "Go to previous buffer" })
 vim.keymap.set("n", "<Esc>", "<Cmd>noh<Return><Esc>", { desc = "Go to normal mode, clear any highlights" })
