@@ -1,3 +1,5 @@
+vim.g.mapleader = " "
+
 vim.keymap.set("n", "<Up>", "")
 vim.keymap.set("n", "<Down>", "")
 vim.keymap.set("n", "<Left>", "")

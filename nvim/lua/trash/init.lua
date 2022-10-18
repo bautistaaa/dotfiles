@@ -11,17 +11,14 @@ local function init()
 	vim.g["test#strategy"] = "neovim"
 	vim.g["test#neovim#term_position"] = "vertical"
 	vim.g["test#javascript#jest#options"] = "--watch"
-
-	-- Key map leader
-	vim.g.mapleader = " "
 end
 
 function M.setup()
 	init()
 
 	require("trash.autocmds")
-	require("trash.options")
 	require("trash.keymaps")
+	require("trash.options")
 	require("trash.plugins")
 	require("trash.colorscheme")
 end
