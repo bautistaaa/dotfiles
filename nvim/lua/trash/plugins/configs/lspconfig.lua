@@ -72,6 +72,7 @@ local default_config = {
 
 require("mason-tool-installer").setup({
 	ensure_installed = {
+		"eslint_d",
 		"prettier",
 		"stylua",
 	},
@@ -181,7 +182,7 @@ diagnosticls.init({
 })
 
 local web_configs = {
-	linter = require("diagnosticls-configs.linters.eslint"),
+	linter = require("diagnosticls-configs.linters.eslint_d"),
 	formatter = require("diagnosticls-configs.formatters.prettier"),
 }
 
