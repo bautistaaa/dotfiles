@@ -72,24 +72,26 @@ local default_config = {
 
 require("mason-tool-installer").setup({
 	ensure_installed = {
-		"eslint_d",
 		"prettier",
 		"stylua",
 	},
 })
 require("mason-lspconfig").setup({
 	ensure_installed = {
-		"pylsp",
 		"bashls",
 		"cssls",
+		"diagnosticls",
 		"dockerls",
+		"gopls",
 		"html",
 		"jsonls",
-		"tsserver",
+		"pylsp",
+		"sumneko_lua",
 		"tailwindcss",
+		"tsserver",
 		"yamlls",
-		"gopls",
 	},
+	automatic_installation = true,
 })
 
 -- Language Servers
@@ -99,7 +101,6 @@ lspconfig.cssls.setup(default_config)
 lspconfig.dockerls.setup(default_config)
 lspconfig.html.setup(default_config)
 lspconfig.jsonls.setup(default_config)
-lspconfig.vimls.setup(default_config)
 lspconfig.yamlls.setup(default_config)
 lspconfig.gopls.setup(default_config)
 
@@ -157,29 +158,39 @@ lspconfig.sumneko_lua.setup(vim.tbl_extend("force", default_config, {
 	},
 }))
 
--- Null-LS Linter/Formatter
-local null_ls_group = vim.api.nvim_create_augroup("NullLSGroup", {})
-require("null-ls").setup({
-	sources = {
-		require("null-ls").builtins.formatting.stylua,
-		require("null-ls").builtins.formatting.prettier,
-		require("null-ls").builtins.diagnostics.eslint_d,
-	},
+local diagnosticls_group = vim.api.nvim_create_augroup("DiagnosticLSGroup", {})
+local diagnosticls = require("diagnosticls-configs")
 
+diagnosticls.init({
 	on_attach = function(_, bufnr)
-		vim.api.nvim_clear_autocmds({ group = null_ls_group, buffer = bufnr })
+		vim.api.nvim_clear_autocmds({ group = diagnosticls_group, buffer = bufnr })
 		vim.api.nvim_create_autocmd("BufWritePre", {
-			group = null_ls_group,
+			group = diagnosticls_group,
 			buffer = bufnr,
 			callback = function()
 				vim.lsp.buf.format({
-					name = "null-ls",
+					name = "diagnosticls",
 					bufnr = bufnr,
 					async = false,
 					timeout_ms = 2500,
 				})
 			end,
-			desc = "Format on save [Null-ls]",
+			desc = "Format on save [DiagnosticLS]",
 		})
 	end,
+})
+
+local web_configs = {
+	linter = require("diagnosticls-configs.linters.eslint"),
+	formatter = require("diagnosticls-configs.formatters.prettier"),
+}
+
+diagnosticls.setup({
+	javascript = web_configs,
+	javascriptreact = web_configs,
+	typescript = web_configs,
+	typescriptreact = web_configs,
+	lua = {
+		formatter = require("diagnosticls-configs.formatters.stylua"),
+	},
 })

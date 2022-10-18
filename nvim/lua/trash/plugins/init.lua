@@ -58,7 +58,7 @@ local user_plugins = {
 		"neovim/nvim-lspconfig",
 		requires = {
 			-- Linter/Formatter
-			"jose-elias-alvarez/null-ls.nvim",
+			"creativenull/diagnosticls-configs-nvim",
 			-- Tool installer
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
