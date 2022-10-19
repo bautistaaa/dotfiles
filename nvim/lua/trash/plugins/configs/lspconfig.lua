@@ -16,9 +16,9 @@ local function on_attach(client, bufnr)
 	vim.keymap.set("n", "gW", vim.lsp.buf.workspace_symbol, { desc = "Search workspace symbols [LSP]", buffer = bufnr })
 	vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Show references [LSP]", buffer = bufnr })
 	vim.keymap.set("n", "<c-k>", vim.lsp.buf.signature_help, { desc = "Show signature help [LSP]", buffer = bufnr })
-	vim.keymap.set("n", "<leader>p", function()
-		vim.lsp.buf.format({ name = client.name, bufnr = bufnr, async = false, timeout_ms = 2500 })
-	end, { desc = "Format buffer [LSP]", buffer = bufnr })
+	-- vim.keymap.set("n", "<leader>p", function()
+	-- 	vim.lsp.buf.format({ name = client.name, bufnr = bufnr, async = false, timeout_ms = 2500 })
+	-- end, { desc = "Format buffer [LSP]", buffer = bufnr })
 
 	-- LSP Saga keymaps
 	vim.keymap.set("n", "K", "<Cmd>Lspsaga hover_doc<CR>", { desc = "Hover documentation [LSP]", buffer = bufnr })
