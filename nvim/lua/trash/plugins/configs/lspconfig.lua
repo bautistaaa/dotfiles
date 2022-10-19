@@ -161,23 +161,20 @@ local diagnosticls = require("diagnosticls-configs")
 
 diagnosticls.init({
 	on_attach = function(_, bufnr)
+		local format_opts = { name = "diagnosticls", bufnr = bufnr, async = false, timeout_ms = 2500 }
+
 		vim.keymap.set("n", "<leader>p", function()
-			vim.lsp.buf.format({ name = "diagnosticls", bufnr = bufnr, async = false, timeout_ms = 2500 })
-		end, { desc = "Format buffer [LSP]", buffer = bufnr })
+			vim.lsp.buf.format(format_opts)
+		end, { desc = "Format current buffer [LSP]", buffer = bufnr })
 
 		vim.api.nvim_clear_autocmds({ group = diagnosticls_group, buffer = bufnr })
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			group = diagnosticls_group,
 			buffer = bufnr,
 			callback = function()
-				vim.lsp.buf.format({
-					name = "diagnosticls",
-					bufnr = bufnr,
-					async = false,
-					timeout_ms = 2500,
-				})
+				vim.lsp.buf.format(format_opts)
 			end,
-			desc = "Format on save [DiagnosticLS]",
+			desc = "Format on save [LSP]",
 		})
 	end,
 })
