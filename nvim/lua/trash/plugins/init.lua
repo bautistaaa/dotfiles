@@ -108,6 +108,7 @@ local user_plugins = {
 	},
 
 	-- Theme/Syntax
+	{ "catppuccin/nvim", as = "catppuccin" },
 	{
 		"akinsho/bufferline.nvim",
 		requires = "nvim-tree/nvim-web-devicons",
@@ -123,7 +124,6 @@ local user_plugins = {
 		end,
 	},
 	"princejoogie/tailwind-highlight.nvim",
-	"joshdick/onedark.vim",
 }
 
 -- Plugin Setup

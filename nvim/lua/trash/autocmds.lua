@@ -14,11 +14,11 @@ local function transparent_cb()
 end
 
 local transparent_group = vim.api.nvim_create_augroup("TransparentGroup", { clear = true })
-vim.api.nvim_create_autocmd("ColorScheme", {
-	group = transparent_group,
-	callback = transparent_cb,
-	desc = "Transparent highlights",
-})
+-- vim.api.nvim_create_autocmd("ColorScheme", {
+-- 	group = transparent_group,
+-- 	callback = transparent_cb,
+-- 	desc = "Transparent highlights",
+-- })
 
 -- Briefly highlight code on yank
 local yank_group = vim.api.nvim_create_augroup("YankGroup", { clear = true })
