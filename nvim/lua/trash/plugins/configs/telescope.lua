@@ -4,7 +4,7 @@ local telescope_builtin = require("telescope.builtin")
 
 telescope.setup({
 	defaults = {
-		file_ignore_patterns = { "%.git/", "node_modules/", "coverage/", "__pycache__/", "%.o" },
+		file_ignore_patterns = { "%.git/", "node_modules/", "coverage/", "__pycache__/", "%.o", "client/graphql/" },
 		mappings = {
 			i = {
 				["<C-k>"] = telescope_actions.move_selection_previous,
