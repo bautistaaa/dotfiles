@@ -1,4 +1,25 @@
 local lspconfig = require("lspconfig")
+local diagnosticls = require("diagnosticls-configs")
+local format_group = vim.api.nvim_create_augroup("LspFormatGroup", {})
+local format_opts = { async = false, timeout_ms = 2500 }
+
+local function register_fmt_keymap(name, bufnr)
+	vim.keymap.set("n", "<leader>p", function()
+		vim.lsp.buf.format(vim.tbl_extend("force", format_opts, { name = name, bufnr = bufnr }))
+	end, { desc = "Format current buffer [LSP]", buffer = bufnr })
+end
+
+local function register_fmt_autosave(name, bufnr)
+	vim.api.nvim_clear_autocmds({ group = format_group, buffer = bufnr })
+	vim.api.nvim_create_autocmd("BufWritePre", {
+		group = format_group,
+		buffer = bufnr,
+		callback = function()
+			vim.lsp.buf.format(vim.tbl_extend("force", format_opts, { name = name, bufnr = bufnr }))
+		end,
+		desc = "Format on save [LSP]",
+	})
+end
 
 -- Global diagnostic config
 vim.diagnostic.config({
@@ -48,6 +69,11 @@ local function on_attach(client, bufnr)
 			{ desc = "Organize imports [TS]", buffer = bufnr }
 		)
 	end
+
+	if client.name == "rust_analyzer" then
+		register_fmt_keymap(client.name, bufnr)
+		register_fmt_autosave(client.name, bufnr)
+	end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -72,6 +98,7 @@ require("mason-tool-installer").setup({
 		"eslint_d",
 		"prettier",
 		"stylua",
+		"codelldb",
 	},
 })
 require("mason-lspconfig").setup({
@@ -84,6 +111,7 @@ require("mason-lspconfig").setup({
 		"html",
 		"jsonls",
 		"pylsp",
+		"rust_analyzer",
 		"sumneko_lua",
 		"tailwindcss",
 		"tsserver",
@@ -156,26 +184,10 @@ lspconfig.sumneko_lua.setup(vim.tbl_extend("force", default_config, {
 	},
 }))
 
-local diagnosticls_group = vim.api.nvim_create_augroup("DiagnosticLSGroup", {})
-local diagnosticls = require("diagnosticls-configs")
-
 diagnosticls.init({
 	on_attach = function(_, bufnr)
-		local format_opts = { name = "diagnosticls", bufnr = bufnr, async = false, timeout_ms = 2500 }
-
-		vim.keymap.set("n", "<leader>p", function()
-			vim.lsp.buf.format(format_opts)
-		end, { desc = "Format current buffer [LSP]", buffer = bufnr })
-
-		vim.api.nvim_clear_autocmds({ group = diagnosticls_group, buffer = bufnr })
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			group = diagnosticls_group,
-			buffer = bufnr,
-			callback = function()
-				vim.lsp.buf.format(format_opts)
-			end,
-			desc = "Format on save [LSP]",
-		})
+		register_fmt_keymap("diagnosticls", bufnr)
+		register_fmt_autosave("diagnosticls", bufnr)
 	end,
 })
 
@@ -192,4 +204,9 @@ diagnosticls.setup({
 	lua = {
 		formatter = require("diagnosticls-configs.formatters.stylua"),
 	},
+})
+
+-- Rust
+require("rust-tools").setup({
+	server = default_config,
 })

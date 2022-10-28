@@ -7,9 +7,10 @@ require("nvim-treesitter.configs").setup({
 		"json",
 		"lua",
 		"python",
+		"rust",
+		"svelte",
 		"tsx",
 		"typescript",
-		"svelte",
 	},
 	highlight = { enable = true },
 })
