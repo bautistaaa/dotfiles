@@ -57,19 +57,29 @@ local user_plugins = {
 	{
 		"neovim/nvim-lspconfig",
 		requires = {
+			-- Debuggers
+			"mfussenegger/nvim-dap",
 			-- Linter/Formatter
 			"creativenull/diagnosticls-configs-nvim",
 			-- Tool installer
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			"jayp0521/mason-nvim-dap.nvim",
 			-- UI/Aesthetics
 			"glepnir/lspsaga.nvim",
+			-- Rust specific
+			"simrat39/rust-tools.nvim",
 		},
 		config = function()
 			require("lspsaga").init_lsp_saga({ border_style = "rounded" })
 			require("mason").setup()
+
+			-- LSP
 			require("trash.plugins.configs.lspconfig")
+
+			-- Debugger
+			require("trash.plugins.configs.dap")
 		end,
 	},
 
