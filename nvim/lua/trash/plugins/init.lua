@@ -13,6 +13,7 @@ local user_plugins = {
 	"janko/vim-test",
 	"jiangmiao/auto-pairs",
 	"mattn/emmet-vim",
+	"github/copilot.vim",
 	"kevinhwang91/nvim-bqf",
 	{
 		"mbbill/undotree",
@@ -118,6 +119,13 @@ local user_plugins = {
 	},
 
 	-- Theme/Syntax
+	{
+		"kevinhwang91/nvim-ufo",
+		requires = "kevinhwang91/promise-async",
+		config = function()
+			require("trash.plugins.configs.ufo")
+		end,
+	},
 	{ "catppuccin/nvim", as = "catppuccin" },
 	{
 		"akinsho/bufferline.nvim",
