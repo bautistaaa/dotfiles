@@ -13,7 +13,12 @@ local user_plugins = {
 	"janko/vim-test",
 	"jiangmiao/auto-pairs",
 	"mattn/emmet-vim",
-	"github/copilot.vim",
+	{
+		"github/copilot.vim",
+		config = function()
+			require("trash.plugins.configs.copilot")
+		end,
+	},
 	"kevinhwang91/nvim-bqf",
 	{
 		"mbbill/undotree",

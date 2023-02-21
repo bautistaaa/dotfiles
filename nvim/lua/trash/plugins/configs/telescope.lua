@@ -30,7 +30,7 @@ vim.keymap.set("n", "<Leader>c", function()
 	telescope_builtin.find_files({ cwd = vim.fn.stdpath("config") })
 end, { desc = "Find files within vim config" })
 
-vim.keymap.set("n", "<Leader>f", function()
+vim.keymap.set("n", "<Leader>ff", function()
 	telescope_builtin.live_grep()
 end, { desc = "Grep files" })
 
