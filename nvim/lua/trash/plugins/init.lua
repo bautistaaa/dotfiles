@@ -7,7 +7,20 @@ local user_plugins = {
 		end,
 	},
 	"tpope/vim-surround",
-	"tpope/vim-commentary",
+	-- "tpope/vim-commentary",
+	"numToStr/Comment.nvim",
+	-- This allows for JSX comments
+	{
+		"JoosepAlviste/nvim-ts-context-commentstring",
+		config = function()
+			require("nvim-treesitter.configs").setup({
+				context_commentstring = {
+					enable = true,
+					enable_autocmd = false,
+				},
+			})
+		end,
+	},
 	"tpope/vim-repeat",
 	"tpope/vim-rhubarb",
 	"janko/vim-test",

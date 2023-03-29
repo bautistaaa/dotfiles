@@ -21,7 +21,10 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 })
 
 -- Briefly highlight code on yank
-local yank_group = vim.api.nvim_create_augroup("YankGroup", { clear = true })
+local yank_group = vim.api.nvim_create_augroup("YankGroup", {
+
+	group = yank_group,
+})
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = yank_group,
 	callback = function()
