@@ -7,7 +7,6 @@ local user_plugins = {
 		end,
 	},
 	"tpope/vim-surround",
-	-- "tpope/vim-commentary",
 	"numToStr/Comment.nvim",
 	-- This allows for JSX comments
 	{
@@ -85,13 +84,10 @@ local user_plugins = {
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			"jayp0521/mason-nvim-dap.nvim",
-			-- UI/Aesthetics
-			"glepnir/lspsaga.nvim",
 			-- Rust specific
 			"simrat39/rust-tools.nvim",
 		},
 		config = function()
-			require("lspsaga").init_lsp_saga({ border_style = "rounded" })
 			require("mason").setup()
 
 			-- LSP
@@ -136,6 +132,12 @@ local user_plugins = {
 		end,
 	},
 
+	-- sourcegraph
+	{
+		"sourcegraph/sg.nvim",
+		run = "cargo build --workspace",
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
 	-- Theme/Syntax
 	{
 		"kevinhwang91/nvim-ufo",

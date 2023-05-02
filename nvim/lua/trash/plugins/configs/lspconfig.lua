@@ -28,6 +28,14 @@ vim.diagnostic.config({
 	update_in_insert = false,
 })
 
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+	border = "rounded",
+})
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+	border = "rounded",
+})
+
 local function on_attach(client, bufnr)
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition [LSP]", buffer = bufnr })
 	vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { desc = "Go to type definition", buffer = bufnr })
@@ -37,28 +45,14 @@ local function on_attach(client, bufnr)
 	vim.keymap.set("n", "gW", vim.lsp.buf.workspace_symbol, { desc = "Search workspace symbols [LSP]", buffer = bufnr })
 	vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Show references [LSP]", buffer = bufnr })
 	vim.keymap.set("n", "<c-k>", vim.lsp.buf.signature_help, { desc = "Show signature help [LSP]", buffer = bufnr })
-
-	-- LSP Saga keymaps
-	vim.keymap.set("n", "K", "<Cmd>Lspsaga hover_doc<CR>", { desc = "Hover documentation [LSP]", buffer = bufnr })
-	vim.keymap.set("n", "<leader>af", "<Cmd>Lspsaga code_action<CR>", { desc = "Code action [LSP]", buffer = bufnr })
-	vim.keymap.set("n", "<leader>rn", "<Cmd>Lspsaga rename<CR>", { desc = "Rename [LSP]", buffer = bufnr })
+	vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Show stuff on hover", buffer = bufnr })
+	vim.keymap.set("n", "<leader>af", vim.lsp.buf.code_action, { desc = "Code action [LSP]", buffer = bufnr })
+	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename [LSP]", buffer = bufnr })
 	vim.keymap.set(
 		"n",
 		"<leader>ls",
-		"<Cmd>Lspsaga show_line_diagnostics<CR>",
+		vim.diagnostic.open_float,
 		{ desc = "Show diagnostic at line [LSP]", buffer = bufnr }
-	)
-	vim.keymap.set(
-		"n",
-		"[e",
-		"<cmd>Lspsaga diagnostic_jump_prev<CR>",
-		{ desc = "Go to next diagnostic [LSP]", buffer = bufnr }
-	)
-	vim.keymap.set(
-		"n",
-		"]e",
-		"<cmd>Lspsaga diagnostic_jump_next<CR>",
-		{ desc = "Go to previous diagnostic [LSP]", buffer = bufnr }
 	)
 
 	if client.name == "tsserver" then
@@ -112,7 +106,7 @@ require("mason-lspconfig").setup({
 		"jsonls",
 		"pylsp",
 		"rust_analyzer",
-		"sumneko_lua",
+		"lua_ls",
 		"tailwindcss",
 		"tsserver",
 		"yamlls",
@@ -170,7 +164,7 @@ local lua_rtp = vim.split(package.path, ";")
 table.insert(lua_rtp, "lua/?.lua")
 table.insert(lua_rtp, "lua/?/init.lua")
 
-lspconfig.sumneko_lua.setup(vim.tbl_extend("force", default_config, {
+lspconfig.lua_ls.setup(vim.tbl_extend("force", default_config, {
 	settings = {
 		Lua = {
 			runtime = {
