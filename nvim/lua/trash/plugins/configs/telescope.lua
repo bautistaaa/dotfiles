@@ -11,7 +11,7 @@ telescope.setup({
 			"__pycache__/",
 			"%.o",
 			"client/graphql/",
-			"src-tauri/target/",
+			"**/generatedTypesAndHooks.ts",
 		},
 		mappings = {
 			i = {
