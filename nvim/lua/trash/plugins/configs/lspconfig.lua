@@ -165,7 +165,16 @@ lspconfig.tsserver.setup({
 local lua_rtp = vim.split(package.path, ";")
 table.insert(lua_rtp, "lua/?.lua")
 table.insert(lua_rtp, "lua/?/init.lua")
-lspconfig.lua_ls.setup(default_config)
+lspconfig.lua_ls.setup(vim.tbl_extend("force", default_config, {
+	settings = {
+		Lua = {
+			runtime = { version = "LuaJIT" },
+			diagnostics = { globals = { "vim" } },
+			workspace = { checkThirdParty = false },
+			telemetry = { enable = false },
+		},
+	},
+}))
 
 diagnosticls.init({
 	on_attach = function(_, bufnr)
