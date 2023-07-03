@@ -70,7 +70,7 @@ local user_plugins = {
 	-- LSP
 	{
 		"neovim/nvim-lspconfig",
-		tag = "v0.1.6",
+		commit = "0011c435282f043a018e23393cae06ed926c3f4a",
 		requires = {
 			-- Debuggers
 			{ "mfussenegger/nvim-dap", tag = "0.6.0" },
