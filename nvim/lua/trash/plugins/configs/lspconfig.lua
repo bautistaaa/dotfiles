@@ -1,7 +1,8 @@
+require("neodev").setup()
 local lspconfig = require("lspconfig")
 local diagnosticls = require("diagnosticls-configs")
 local format_group = vim.api.nvim_create_augroup("LspFormatGroup", {})
-local format_opts = { async = false, timeout_ms = 2500 }
+local format_opts = { async = true }
 
 local function register_fmt_keymap(name, bufnr)
 	vim.keymap.set("n", "<leader>p", function()
@@ -15,6 +16,7 @@ local function register_fmt_autosave(name, bufnr)
 		group = format_group,
 		buffer = bufnr,
 		callback = function()
+			vim.print("Formatting...")
 			vim.lsp.buf.format(vim.tbl_extend("force", format_opts, { name = name, bufnr = bufnr }))
 		end,
 		desc = "Format on save [LSP]",
@@ -163,20 +165,7 @@ lspconfig.tsserver.setup({
 local lua_rtp = vim.split(package.path, ";")
 table.insert(lua_rtp, "lua/?.lua")
 table.insert(lua_rtp, "lua/?/init.lua")
-
-lspconfig.lua_ls.setup(vim.tbl_extend("force", default_config, {
-	settings = {
-		Lua = {
-			runtime = {
-				version = "LuaJIT",
-				path = lua_rtp,
-			},
-			diagnostics = { globals = { "vim" } },
-			workspace = { library = vim.api.nvim_get_runtime_file("", true) },
-			telemetry = { enable = false },
-		},
-	},
-}))
+lspconfig.lua_ls.setup(default_config)
 
 diagnosticls.init({
 	on_attach = function(_, bufnr)
