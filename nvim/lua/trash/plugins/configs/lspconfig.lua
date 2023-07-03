@@ -2,7 +2,7 @@ require("neodev").setup()
 local lspconfig = require("lspconfig")
 local diagnosticls = require("diagnosticls-configs")
 local format_group = vim.api.nvim_create_augroup("LspFormatGroup", {})
-local format_opts = { async = true }
+local format_opts = { async = false, timeout_ms = 500 }
 
 local function register_fmt_keymap(name, bufnr)
 	vim.keymap.set("n", "<leader>p", function()
