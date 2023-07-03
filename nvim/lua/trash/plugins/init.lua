@@ -7,16 +7,11 @@ local user_plugins = {
 		end,
 	},
 	"tpope/vim-surround",
-	"numToStr/Comment.nvim",
-	-- This allows for JSX comments
 	{
-		"JoosepAlviste/nvim-ts-context-commentstring",
+		"numToStr/Comment.nvim",
 		config = function()
-			require("nvim-treesitter.configs").setup({
-				context_commentstring = {
-					enable = true,
-					enable_autocmd = false,
-				},
+			require("Comment").setup({
+				pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
 			})
 		end,
 	},
@@ -66,6 +61,7 @@ local user_plugins = {
 	-- Whichkey
 	{
 		"folke/which-key.nvim",
+		tag = "v1.4.3",
 		config = function()
 			require("trash.plugins.configs.which-key")
 		end,
@@ -74,18 +70,21 @@ local user_plugins = {
 	-- LSP
 	{
 		"neovim/nvim-lspconfig",
+		commit = "0011c435282f043a018e23393cae06ed926c3f4a",
 		requires = {
 			-- Debuggers
-			"mfussenegger/nvim-dap",
+			{ "mfussenegger/nvim-dap", tag = "0.6.0" },
 			-- Linter/Formatter
 			"creativenull/diagnosticls-configs-nvim",
 			-- Tool installer
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-			"WhoIsSethDaniel/mason-tool-installer.nvim",
-			"jayp0521/mason-nvim-dap.nvim",
+			{ "williamboman/mason.nvim", tag = "v1.5.1" },
+			{ "williamboman/mason-lspconfig.nvim", tag = "v1.8.0" },
+			{ "WhoIsSethDaniel/mason-tool-installer.nvim", commit = "49e3efe743d846d80da5a4757d4f7e563a96cb84" },
+			{ "jayp0521/mason-nvim-dap.nvim", tag = "v2.1.1" },
 			-- Rust specific
-			"simrat39/rust-tools.nvim",
+			{ "simrat39/rust-tools.nvim", commit = "71d2cf67b5ed120a0e31b2c8adb210dd2834242f" },
+			-- lua specific
+			{ "folke/neodev.nvim", tag = "v2.5.2" },
 		},
 		config = function()
 			require("mason").setup()
@@ -124,8 +123,9 @@ local user_plugins = {
 	-- Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
+		requires = { "JoosepAlviste/nvim-ts-context-commentstring" },
 		run = function()
-			require("nvim-treesitter.install").update({ with_sync = true })
+			require("nvim-treesitter.install").update({ with_sync = true })()
 		end,
 		config = function()
 			require("trash.plugins.configs.treesitter")
@@ -141,7 +141,8 @@ local user_plugins = {
 	-- Theme/Syntax
 	{
 		"kevinhwang91/nvim-ufo",
-		requires = "kevinhwang91/promise-async",
+		commit = "43e39ec74cd57c45ca9d8229a796750f6083b850",
+		requires = { "kevinhwang91/promise-async" },
 		config = function()
 			require("trash.plugins.configs.ufo")
 		end,
@@ -161,7 +162,7 @@ local user_plugins = {
 			require("trash.plugins.configs.lualine")
 		end,
 	},
-	"princejoogie/tailwind-highlight.nvim",
+	{ "princejoogie/tailwind-highlight.nvim", commit = "cfd53d0f6318e8eaada03e10c7f2e4e57ec430c5" },
 }
 
 -- Plugin Setup

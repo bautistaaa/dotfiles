@@ -11,6 +11,11 @@ require("nvim-treesitter.configs").setup({
 		"svelte",
 		"tsx",
 		"typescript",
+		"prisma",
 	},
 	highlight = { enable = true },
+	context_commentstring = {
+		enable = true,
+		enable_autocmd = false,
+	},
 })
