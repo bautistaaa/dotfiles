@@ -7,16 +7,11 @@ local user_plugins = {
 		end,
 	},
 	"tpope/vim-surround",
-	"numToStr/Comment.nvim",
-	-- This allows for JSX comments
 	{
-		"JoosepAlviste/nvim-ts-context-commentstring",
+		"numToStr/Comment.nvim",
 		config = function()
-			require("nvim-treesitter.configs").setup({
-				context_commentstring = {
-					enable = true,
-					enable_autocmd = false,
-				},
+			require("Comment").setup({
+				pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
 			})
 		end,
 	},
@@ -86,6 +81,8 @@ local user_plugins = {
 			"jayp0521/mason-nvim-dap.nvim",
 			-- Rust specific
 			"simrat39/rust-tools.nvim",
+			-- lua specific
+			"folke/neodev.nvim",
 		},
 		config = function()
 			require("mason").setup()
@@ -124,8 +121,9 @@ local user_plugins = {
 	-- Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
+		requires = { "JoosepAlviste/nvim-ts-context-commentstring" },
 		run = function()
-			require("nvim-treesitter.install").update({ with_sync = true })
+			require("nvim-treesitter.install").update({ with_sync = true })()
 		end,
 		config = function()
 			require("trash.plugins.configs.treesitter")
