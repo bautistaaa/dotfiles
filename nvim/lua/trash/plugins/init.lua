@@ -9,6 +9,7 @@ local user_plugins = {
 	"tpope/vim-surround",
 	{
 		"numToStr/Comment.nvim",
+		dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
 		config = function()
 			require("Comment").setup({
 				pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
@@ -38,7 +39,7 @@ local user_plugins = {
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v2.x",
-		requires = {
+		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
@@ -51,8 +52,8 @@ local user_plugins = {
 	-- Telescope
 	{
 		"nvim-lua/telescope.nvim",
-		branch = "0.1.x",
-		requires = "nvim-lua/plenary.nvim",
+		version = "^0.8.0",
+		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("trash.plugins.configs.telescope")
 		end,
@@ -61,7 +62,7 @@ local user_plugins = {
 	-- Whichkey
 	{
 		"folke/which-key.nvim",
-		tag = "v1.4.3",
+		version = "^3.13.0",
 		config = function()
 			require("trash.plugins.configs.which-key")
 		end,
@@ -70,21 +71,23 @@ local user_plugins = {
 	-- LSP
 	{
 		"neovim/nvim-lspconfig",
-		commit = "0011c435282f043a018e23393cae06ed926c3f4a",
-		requires = {
+		version = "^1.0.0",
+		dependencies = {
 			-- Debuggers
-			{ "mfussenegger/nvim-dap", tag = "0.6.0" },
+			{ "mfussenegger/nvim-dap", version = "^0.8.0" },
 			-- Linter/Formatter
-			"creativenull/diagnosticls-configs-nvim",
+			"nvimtools/none-ls.nvim",
+			"nvimtools/none-ls-extras.nvim",
+			{ "princejoogie/tailwind-highlight.nvim", commit = "cfd53d0f6318e8eaada03e10c7f2e4e57ec430c5" },
 			-- Tool installer
-			{ "williamboman/mason.nvim", tag = "v1.5.1" },
-			{ "williamboman/mason-lspconfig.nvim", tag = "v1.8.0" },
-			{ "WhoIsSethDaniel/mason-tool-installer.nvim", commit = "49e3efe743d846d80da5a4757d4f7e563a96cb84" },
-			{ "jayp0521/mason-nvim-dap.nvim", tag = "v2.1.1" },
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			"jayp0521/mason-nvim-dap.nvim",
 			-- Rust specific
-			{ "simrat39/rust-tools.nvim", commit = "71d2cf67b5ed120a0e31b2c8adb210dd2834242f" },
+			"simrat39/rust-tools.nvim",
 			-- lua specific
-			{ "folke/neodev.nvim", tag = "v2.5.2" },
+			{ "folke/neodev.nvim" },
 		},
 		config = function()
 			require("mason").setup()
@@ -100,7 +103,7 @@ local user_plugins = {
 	-- Autocompletion and Snippets
 	{
 		"hrsh7th/nvim-cmp",
-		requires = {
+		dependencies = {
 			-- Cmdline completions
 			"hrsh7th/cmp-cmdline",
 			-- Path completions
@@ -123,7 +126,7 @@ local user_plugins = {
 	-- Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
-		requires = { "JoosepAlviste/nvim-ts-context-commentstring" },
+		dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
 		run = function()
 			require("nvim-treesitter.install").update({ with_sync = true })()
 		end,
@@ -141,8 +144,7 @@ local user_plugins = {
 	-- Theme/Syntax
 	{
 		"kevinhwang91/nvim-ufo",
-		commit = "43e39ec74cd57c45ca9d8229a796750f6083b850",
-		requires = { "kevinhwang91/promise-async" },
+		dependencies = "kevinhwang91/promise-async",
 		config = function()
 			require("trash.plugins.configs.ufo")
 		end,
@@ -150,19 +152,18 @@ local user_plugins = {
 	{ "catppuccin/nvim", as = "catppuccin" },
 	{
 		"akinsho/bufferline.nvim",
-		requires = "nvim-tree/nvim-web-devicons",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("trash.plugins.configs.bufferline")
 		end,
 	},
 	{
 		"nvim-lualine/lualine.nvim",
-		requires = "nvim-tree/nvim-web-devicons",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("trash.plugins.configs.lualine")
 		end,
 	},
-	{ "princejoogie/tailwind-highlight.nvim", commit = "cfd53d0f6318e8eaada03e10c7f2e4e57ec430c5" },
 	-- Don't leak bro
 	"laytan/cloak.nvim",
 	config = function()
@@ -192,40 +193,23 @@ local user_plugins = {
 
 -- Plugin Setup
 -- ============
-local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-		vim.cmd([[packadd packer.nvim]])
-		return true
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	if vim.v.shell_error ~= 0 then
+		vim.api.nvim_echo({
+			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+			{ out, "WarningMsg" },
+			{ "\nPress any key to exit..." },
+		}, true, {})
+		vim.fn.getchar()
+		os.exit(1)
 	end
-	return false
 end
 
-local packer_bootstrap = ensure_packer()
+vim.opt.rtp:prepend(lazypath)
 
-require("packer").init({
-	compile_path = string.format("%s/site/plugin/packer_compiled.lua", vim.fn.stdpath("data")),
-	display = {
-		prompt_border = "rounded",
-		open_fn = function()
-			return require("packer.util").float({ border = "rounded" })
-		end,
-	},
+require("lazy").setup({
+	spec = user_plugins,
 })
-
-require("packer").startup(function(use)
-	use("wbthomason/packer.nvim")
-
-	-- My plugins here
-	for _, user_plugin in pairs(user_plugins) do
-		use(user_plugin)
-	end
-
-	-- Automatically set up your configuration after cloning packer.nvim
-	-- Put this at the end after all plugins
-	if packer_bootstrap then
-		require("packer").sync()
-	end
-end)

@@ -1,6 +1,6 @@
-local catppuccin = require("catppuccin")
+local ok, catppuccin = pcall(require, "catppuccin")
 
-if not catppuccin then
+if not ok then
 	return
 end
 
@@ -44,4 +44,4 @@ catppuccin.setup({
 	},
 })
 
-vim.cmd([[colorscheme catppuccin]])
+pcall(vim.cmd, "colorscheme catppuccin")
