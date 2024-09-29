@@ -1,6 +1,6 @@
 require("which-key").setup({
 	triggers = { "<Leader>", "g" },
-	window = {
+	win = {
 		border = "rounded",
 	},
 })
