@@ -68,7 +68,7 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 local function on_attach(client, bufnr)
 	if client.name == "null-ls" then
 		register_fmt_keymap(client.name, bufnr)
-
+    register_fmt_autosave(client.name, bufnr)
 		return
 	end
 
