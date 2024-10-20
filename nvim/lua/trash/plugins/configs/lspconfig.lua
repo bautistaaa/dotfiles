@@ -124,7 +124,8 @@ local default_config = {
 
 require("mason-tool-installer").setup({
   ensure_installed = {
-    "eslint_d",
+    -- "eslint_d",
+    "eslint",
     "prettier",
     "stylua",
     "codelldb",
