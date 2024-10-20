@@ -38,6 +38,7 @@
   "sg.nvim": { "branch": "master", "commit": "76c97d91f8d8818a4fcf14817fadd98412aa44c8" },
   "tailwind-highlight.nvim": { "branch": "main", "commit": "cfd53d0f6318e8eaada03e10c7f2e4e57ec430c5" },
   "telescope.nvim": { "branch": "master", "commit": "cb3f98d935842836cc115e8c9e4b38c1380fbb6b" },
+  "trouble.nvim": { "branch": "main", "commit": "254145ffd528b98eb20be894338e2d5c93fa02c2" },
   "undotree": { "branch": "master", "commit": "78b5241191852ffa9bb5da5ff2ee033160798c3b" },
   "vim-fugitive": { "branch": "master", "commit": "d4877e54cef67f5af4f950935b1ade19ed6b7370" },
   "vim-repeat": { "branch": "master", "commit": "65846025c15494983dafe5e3b46c8f88ab2e9635" },
