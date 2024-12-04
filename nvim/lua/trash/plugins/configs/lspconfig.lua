@@ -136,6 +136,7 @@ require("mason-lspconfig").setup({
     "bashls",
     "cssls",
     "dockerls",
+    "gopls",
     "html",
     "jsonls",
     "pylsp",
