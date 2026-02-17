@@ -136,7 +136,6 @@ require("mason-lspconfig").setup({
     "bashls",
     "cssls",
     "dockerls",
-    "gopls",
     "html",
     "jsonls",
     "pylsp",
@@ -158,8 +157,6 @@ lspconfig.dockerls.setup(default_config)
 lspconfig.html.setup(default_config)
 lspconfig.jsonls.setup(default_config)
 lspconfig.yamlls.setup(default_config)
-lspconfig.gopls.setup(default_config)
-
 
 -- Tailwind CSS
 local tw_highlight = require("tailwind-highlight")

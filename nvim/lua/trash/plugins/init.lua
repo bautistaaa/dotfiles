@@ -17,7 +17,12 @@ local user_plugins = {
     end,
   },
   "tpope/vim-repeat",
-  "tpope/vim-rhubarb",
+  {
+    "tpope/vim-rhubarb",
+    init = function()
+      vim.g.github_enterprise_urls = { 'https://git.netflix.net/pxd/spotlight-ui.git' }
+    end,
+  },
   "janko/vim-test",
   "jiangmiao/auto-pairs",
   "mattn/emmet-vim",
