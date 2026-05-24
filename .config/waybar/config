@@ -1,0 +1,36 @@
+{
+	"layer": "top",
+	"position": "top",
+	"height": 34,
+
+	"modules-left": ["group/workspaces", "custom/window"],
+	"modules-center": ["clock"],
+	"modules-right": ["pulseaudio", "network", "battery", "tray"],
+
+	"custom/window": {
+		"exec": "~/.config/waybar/scripts/window-name.sh",
+		"interval": 1,
+		"max-length": 40
+	},
+
+	"clock": {
+		"format": "{:%a %b %d  %I:%M %p}"
+	},
+
+	"battery": {
+		"format": "{capacity}% {icon}",
+		"format-icons": ["", "", "", "", ""]
+	},
+
+	"network": {
+		"format-wifi": "  {essid}",
+		"format-ethernet": "󰈀 wired",
+		"format-disconnected": "offline",
+		"on-click": "~/.config/rofi/scripts/rofi-wifi-menu.sh"
+	},
+
+	"pulseaudio": {
+		"format": "  {volume}%"
+	}
+
+}

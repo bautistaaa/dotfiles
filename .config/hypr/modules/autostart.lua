@@ -1,0 +1,7 @@
+hl.on("hyprland.start", function()
+    hl.exec_cmd("hypridle")
+    hl.exec_cmd("~/.config/waybar/launch.sh")
+    hl.exec_cmd("swaync")
+    hl.exec_cmd("swww-daemon")
+    hl.exec_cmd("sleep 1 && swww img ~/Pictures/wallpapers/mitsuri.png")
+end)

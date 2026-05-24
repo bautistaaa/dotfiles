@@ -1,0 +1,26 @@
+# Core desktop
+hyprland
+waybar
+kitty
+rofi
+stow
+
+# Apps opened from Hyprland keybinds / scripts
+yazi
+btop
+google-chrome-stable
+
+# Hyprland utilities
+grim
+slurp
+wl-clipboard
+brightnessctl
+wireplumber
+# swww and swaync are not in Ubuntu/Pop apt; install manually if needed
+hypridle
+hyprlock
+socat
+jq
+
+# Fonts used by waybar/kitty config
+fonts-jetbrains-mono

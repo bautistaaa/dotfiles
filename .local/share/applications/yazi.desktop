@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Yazi
+Comment=TUI file manager
+Exec=sh -c '"$HOME/.config/hypr/scripts/yazi.sh" %f'
+Icon=folder
+Terminal=false
+Type=Application
+Categories=System;FileManager;
+MimeType=inode/directory;

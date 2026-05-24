@@ -1,0 +1,47 @@
+* {
+  font-family: "JetBrains Mono", sans-serif;
+  font-size: 13px;
+  border: none;
+  border-radius: 10px;
+}
+
+window#waybar {
+  background: rgba(17, 17, 27, 0.82);
+  color: #cdd6f4;
+  border-radius: 18px;
+  border: 1px solid rgba(203, 166, 247, 0.35);
+}
+
+window#waybar > box {
+  padding: 0 4px;
+}
+
+#workspaces label {
+  padding: 0 10px;
+  margin: 5px 3px;
+  color: #cdd6f4;
+  background: transparent;
+}
+
+#workspaces .active {
+  background: #cba6f7;
+  color: #11111b;
+}
+
+#custom-window {
+  padding: 0 12px;
+  margin: 5px 4px;
+  background: #cba6f7;
+  color: #11111b;
+  font-weight: bold;
+}
+
+#clock,
+#battery,
+#network,
+#pulseaudio,
+#tray {
+  padding: 0 12px;
+  margin: 5px 4px;
+  background: rgba(49, 50, 68, 0.85);
+}

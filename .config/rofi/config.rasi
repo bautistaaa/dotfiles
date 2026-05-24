@@ -1,0 +1,117 @@
+configuration {
+  display-drun: "Applications:";
+  display-window: "Windows:";
+  display-calc: "Calculator:";
+  drun-display-format: "{icon} {name}";
+  show-icons: true;
+  font: "JetBrainsMono Nerd Font Medium 10";
+  modi: "window,run,drun,calc";
+  icon-theme:"Papirus";
+  fixed-num-lines: false;
+  location: 2;
+  calc {
+    hint-result: " ";
+    hint-welcome: "Type an expression";
+  }
+}
+
+@theme "/dev/null"
+
+* {
+  bg: #1e1e2e;
+  bg-alt: #585b7066;
+  bg-selected: #31324466;
+
+  fg: #cdd6f4;
+  fg-alt: #7f849c;
+
+  
+  border: 0;
+  margin: 0;
+  padding: 0;
+  spacing: 0;
+}
+
+window {
+  width: 30%;
+  background-color: @bg;
+  location: north;
+  anchor: north;
+  y-offset: 80px;
+}
+
+element {
+  padding: 8 12;
+  background-color: transparent;
+  text-color: @fg-alt;
+}
+
+element selected {
+  text-color: @fg;
+  background-color: @bg-selected;
+}
+
+element-text {
+  background-color: transparent;
+  text-color: inherit;
+  vertical-align: 0.5;
+}
+
+element-icon {
+  size: 14;
+  padding: 0 10 0 0;
+  background-color: transparent;
+}
+
+entry {
+  padding: 12;
+  background-color: @bg-alt;
+  text-color: @fg;
+}
+
+inputbar {
+  children: [prompt, entry];
+  background-color: @bg;
+  expand: false;
+}
+
+listview {
+  background-color: @bg;
+  columns: 1;
+  lines: 10;
+  require-input: true;
+  dynamic: true;
+  fixed-height: false;
+  expand: false;
+}
+
+@media (enabled: env(ROFI_WINDOW, false)) {
+  listview {
+    require-input: false;
+  }
+}
+
+mainbox {
+  children: [inputbar, message, listview];
+  background-color: @bg;
+}
+
+message {
+  background-color: @bg;
+  padding: 0 12 8 12;
+}
+
+textbox {
+  text-color: @fg;
+  background-color: transparent;
+}
+
+prompt {
+  enabled: true;
+  padding: 12 0 0 12;
+  background-color: @bg-alt;
+  text-color: @fg;
+}
+
+/* vim: ft=sass
+
