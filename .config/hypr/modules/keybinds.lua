@@ -74,6 +74,11 @@ hl.bind(MAIN_MOD .. " + CTRL + J", hl.dsp.window.resize({ x = 0,   y = 80,  rela
 hl.bind("Print",           hl.dsp.exec_cmd([[grim ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png]]))
 hl.bind("SHIFT + Print",   hl.dsp.exec_cmd([[grim -g "$(slurp)" ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png]]))
 hl.bind(MAIN_MOD .. " + S", hl.dsp.exec_cmd([[grim -g "$(slurp)" - | wl-copy]]))
+hl.bind(MAIN_MOD .. " + SHIFT + S", hl.dsp.exec_cmd([[grim ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png]]))
+hl.bind(MAIN_MOD .. " + Print",         hl.dsp.exec_cmd("~/.config/hypr/scripts/screenrecord.sh"))
+hl.bind(MAIN_MOD .. " + SHIFT + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenrecord.sh area"))
+hl.bind(MAIN_MOD .. " + R",             hl.dsp.exec_cmd("~/.config/hypr/scripts/screenrecord.sh"))
+hl.bind(MAIN_MOD .. " + SHIFT + R",     hl.dsp.exec_cmd("~/.config/hypr/scripts/screenrecord.sh area"))
 
 -- Volume
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"), { repeating = true, locked = true })
