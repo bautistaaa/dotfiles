@@ -9,6 +9,9 @@
 
 window {
   width: 900px;
+  location: north;
+  anchor: north;
+  y-offset: 140px;
   background-color: transparent;
 }
 
