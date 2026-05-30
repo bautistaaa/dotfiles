@@ -37,4 +37,5 @@ if swww img "$WALL" \
   --transition-duration 1; then
   mkdir -p "$(dirname "$STATE_FILE")"
   printf '%s\n' "$WALL" >"$STATE_FILE"
+  notify-send "Wallpaper changed" "$(basename "$WALL")" --icon "$WALL" 2>/dev/null || true
 fi

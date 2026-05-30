@@ -11,6 +11,7 @@ CONFIG_DIRS=(
   hypr
   kitty
   rofi
+  swaync
   waybar
 )
 
