@@ -11,6 +11,7 @@ hl.bind(MAIN_MOD .. " + W",      hl.dsp.exec_cmd("~/.config/rofi/scripts/rofi-wi
 hl.bind(MAIN_MOD .. " + ALT + L", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(MAIN_MOD .. " + Z",      hl.dsp.window.pseudo())
 hl.bind(MAIN_MOD .. " + P",      hl.dsp.exec_cmd("~/.config/hypr/scripts/wallcycle.sh"))
+hl.bind(MAIN_MOD .. " + SHIFT + P", hl.dsp.exec_cmd("~/.config/hypr/scripts/wallselect.sh"))
 hl.bind(MAIN_MOD .. " + C",      hl.dsp.window.close())
 hl.bind(MAIN_MOD .. " + M",      hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind(MAIN_MOD .. " + V",      hl.dsp.window.float())
