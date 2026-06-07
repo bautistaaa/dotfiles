@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
-"$(dirname "$0")/launch-on-new-workspace.sh" google-chrome --new-window "$@"
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+
+exec "$SCRIPT_DIR/launch-on-new-workspace.sh" google-chrome --new-window --gtk-version=4 "$@"

@@ -8,6 +8,7 @@ STOW_DIR="${DOTFILES}/stow"
 
 CONFIG_DIRS=(
   btop
+  fastfetch
   hypr
   kitty
   rofi

@@ -8,9 +8,14 @@ stow
 # Apps opened from Hyprland keybinds / scripts
 yazi
 btop
+fastfetch
 google-chrome-stable
 
 # Hyprland utilities
+libglib2.0-bin
+xdg-desktop-portal
+xdg-desktop-portal-gtk
+xdg-desktop-portal-hyprland
 grim
 slurp
 wl-clipboard

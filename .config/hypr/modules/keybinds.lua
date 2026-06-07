@@ -6,6 +6,7 @@ hl.bind(MAIN_MOD .. " + B",      hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-
 hl.bind(MAIN_MOD .. " + X",      hl.dsp.exec_cmd("~/.config/hypr/scripts/btop-float.sh"))
 hl.bind(MAIN_MOD .. " + N",      hl.dsp.exec_cmd("swaync-client -t"))
 hl.bind(MAIN_MOD .. " + W",      hl.dsp.exec_cmd("~/.config/rofi/scripts/rofi-wifi-menu.sh"))
+hl.bind(MAIN_MOD .. " + SHIFT + T", hl.dsp.exec_cmd("~/.config/rofi/scripts/rofi-theme-menu.sh"))
 
 -- General
 hl.bind(MAIN_MOD .. " + ALT + L", hl.dsp.exec_cmd("hyprlock"))

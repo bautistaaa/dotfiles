@@ -1,0 +1,22 @@
+[Desktop Entry]
+Version=1.0
+Name=Google Chrome
+GenericName=Web Browser
+Comment=Access the Internet
+Exec=/home/bautistaaa/.config/hypr/scripts/chrome.sh %U
+Terminal=false
+Icon=google-chrome
+Type=Application
+Categories=Network;WebBrowser;
+MimeType=application/pdf;application/rdf+xml;application/rss+xml;application/xhtml+xml;application/xhtml_xml;application/xml;image/gif;image/jpeg;image/png;image/webp;text/html;text/xml;x-scheme-handler/http;x-scheme-handler/https;
+StartupNotify=true
+StartupWMClass=Google-chrome
+Actions=new-window;new-private-window;
+
+[Desktop Action new-window]
+Name=New Window
+Exec=/home/bautistaaa/.config/hypr/scripts/chrome.sh
+
+[Desktop Action new-private-window]
+Name=New Incognito Window
+Exec=/home/bautistaaa/.config/hypr/scripts/chrome.sh --incognito

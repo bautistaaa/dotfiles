@@ -1,6 +1,6 @@
 -- Globals shared across all modules
 MAIN_MOD     = "SUPER"
-TERMINAL     = "kitty"
+TERMINAL     = "kitty --single-instance --instance-group dotfiles --listen-on unix:@dotfiles-kitty"
 BROWSER      = "~/.config/hypr/scripts/chrome.sh"
 FILE_MANAGER = "~/.config/hypr/scripts/yazi.sh"
 MENU         = "rofi -show drun -modes drun,run -theme ~/.config/rofi/config.rasi"

@@ -1,0 +1,8 @@
+* {
+  bg: #f9f5d7;
+  bg-alt: #ebdbb266;
+  bg-selected: #d5c4a166;
+
+  fg: #3c3836;
+  fg-alt: #7c6f64;
+}

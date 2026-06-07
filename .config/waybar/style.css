@@ -1,3 +1,5 @@
+@import "themes/current.css";
+
 * {
   font-family: "JetBrains Mono", sans-serif;
   font-size: 13px;
@@ -6,10 +8,10 @@
 }
 
 window#waybar {
-  background: rgba(17, 17, 27, 0.82);
-  color: #cdd6f4;
+  background: @bar-bg;
+  color: @text;
   border-radius: 18px;
-  border: 1px solid rgba(203, 166, 247, 0.35);
+  border: 1px solid @border;
 }
 
 window#waybar > box {
@@ -19,20 +21,20 @@ window#waybar > box {
 #workspaces label {
   padding: 0 10px;
   margin: 5px 3px;
-  color: #cdd6f4;
+  color: @text;
   background: transparent;
 }
 
 #workspaces .active {
-  background: #cba6f7;
-  color: #11111b;
+  background: @accent;
+  color: @accent-fg;
 }
 
 #custom-window {
   padding: 0 12px;
   margin: 5px 4px;
-  background: #cba6f7;
-  color: #11111b;
+  background: @accent;
+  color: @accent-fg;
   font-weight: bold;
 }
 
@@ -43,5 +45,5 @@ window#waybar > box {
 #tray {
   padding: 0 12px;
   margin: 5px 4px;
-  background: rgba(49, 50, 68, 0.85);
+  background: @module-bg;
 }

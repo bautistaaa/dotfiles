@@ -1,0 +1,6 @@
+@define-color bar-bg rgba(249, 245, 215, 0.88);
+@define-color module-bg rgba(235, 219, 178, 0.86);
+@define-color border rgba(181, 118, 20, 0.35);
+@define-color text #3c3836;
+@define-color accent #b57614;
+@define-color accent-fg #f9f5d7;
